@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Gamebox</string>
+    <string name="correo_electronico">Correo electrónico</string>
 </resources>
