@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5380084490",
+    "project_id": "tfg-medac",
+    "storage_bucket": "tfg-medac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5380084490:android:1570599e0938f962f560f3",
+        "android_client_info": {
+          "package_name": "com.example.gamebox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj9PFGxHR67hEqk3dhi-ADwoRzcpfTOQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
