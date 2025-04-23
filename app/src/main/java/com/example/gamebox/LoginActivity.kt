@@ -1,5 +1,6 @@
 package com.example.gamebox
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -140,6 +141,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showHome() {
-        //ACA PONER EL INTENT QUE DIRIGE A LA HOME
+        val homeIntent = Intent(this, MainActivity::class.java)
+        startActivity(homeIntent)
     }
 }
