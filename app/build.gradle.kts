@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
+    kotlin("kapt")
 }
 
 android {
@@ -63,6 +64,11 @@ dependencies {
     // Retrofit + Moshi
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+
+    // Logger para depurar
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
@@ -83,4 +89,14 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     implementation("androidx.compose.foundation:foundation:1.4.3")
+
+    // GraphQL
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    //USO DE GIFS
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
+    implementation("com.airbnb.android:lottie:6.4.0")
+
 }

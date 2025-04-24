@@ -9,6 +9,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -31,17 +34,14 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = viewModel()) {
-    var expanded by remember { mutableStateOf(false) }
-    val query = viewModel.query
-    val suggestions = viewModel.suggestions
-    val exists = viewModel.exists
-    val headerUrl = viewModel.headerUrl
+    val query by remember { derivedStateOf { viewModel.query } }
+    val suggestions by remember { derivedStateOf { viewModel.suggestions } }
+    val selected by remember { derivedStateOf { viewModel.selectedItem } }
+    val headerUrls by remember { derivedStateOf { viewModel.headerUrls } }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column(Modifier.fillMaxSize().padding(16.dp)) {
         OutlinedTextField(
             value = query,
             onValueChange = {
@@ -50,56 +50,89 @@ fun SearchScreen(viewModel: SearchViewModel = viewModel()) {
             },
             label = { Text("Nombre de juego") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            trailingIcon = {
+                IconButton(
+                    onClick = { expanded =! expanded }
+                ) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                        contentDescription = null
+                    )
+                }
+            }
         )
 
-        // Lista de sugerencias debajo del campo
         if (expanded && suggestions.isNotEmpty()) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f, false)
-            ) {
-                items(suggestions) { app ->
+            LazyColumn(Modifier.fillMaxWidth().heightIn(max = 200.dp)) {
+                items(suggestions) { item ->
+                    // sólo el nombre, sin prefijo
+                    val name = when (item) {
+                        is SearchViewModel.ResultItem.Steam -> item.info.name
+                        is SearchViewModel.ResultItem.Epic  -> item.info.title
+                        is SearchViewModel.ResultItem.Both  -> item.steam.name
+                    }
                     Text(
-                        text = app.name,
+                        text = name,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                viewModel.onQueryChange(app.name)
-                                viewModel.search()
+                                viewModel.selectItem(item)
                                 expanded = false
                             }
                             .padding(8.dp)
                     )
+                    Divider()
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
 
-        when (exists) {
-            true -> {
-                Text(
-                    text = "✅ ¡Juego encontrado: $query!",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                headerUrl?.let { url ->
-                    Spacer(modifier = Modifier.height(8.dp))
-                    AsyncImage(
-                        model = url,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(180.dp)
-                    )
+        selected?.let { sel ->
+            // Título
+            val titleText = when (sel) {
+                is SearchViewModel.ResultItem.Steam -> sel.info.name
+                is SearchViewModel.ResultItem.Epic  -> sel.info.title
+                is SearchViewModel.ResultItem.Both  -> sel.steam.name
+            }
+            Text(text = titleText, style = MaterialTheme.typography.titleMedium)
+
+            // 2) Tienda(s)
+            val stores = when (sel) {
+                is SearchViewModel.ResultItem.Steam -> "Steam"
+                is SearchViewModel.ResultItem.Epic  -> "Epic"
+                is SearchViewModel.ResultItem.Both  -> "Steam y Epic"
+            }
+            Text(text = "Tienda: $stores", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(Modifier.height(12.dp))
+
+            // Imágenes
+            Spacer(Modifier.height(12.dp))
+            when (sel) {
+                is SearchViewModel.ResultItem.Both -> {
+                    // dos side-by-side
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        headerUrls.forEach { url ->
+                            AsyncImage(
+                                model = url,
+                                contentDescription = null,
+                                modifier = Modifier.weight(1f).height(180.dp)
+                            )
+                        }
+                    }
+                }
+                else -> {
+                    headerUrls.firstOrNull()?.let { url ->
+                        AsyncImage(
+                            model = url,
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxWidth().height(180.dp)
+                        )
+                    }
                 }
             }
-            false -> Text(
-                text = "❌ No existe un juego llamado '$query'.",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            null -> { /* no mostrar nada */ }
         }
     }
 }
+
