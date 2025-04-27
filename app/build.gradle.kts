@@ -99,4 +99,7 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
     implementation("com.airbnb.android:lottie:6.4.0")
 
+    //CircleImageView
+    implementation(libs.circleimageview)
+
 }
