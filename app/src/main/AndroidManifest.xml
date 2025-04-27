@@ -14,25 +14,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gamebox"
         tools:targetApi="31">
-
-        <!-- Hacer IntroActivity la primera pantalla -->
+        <activity
+            android:name=".SuscriptionScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewGamesScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PopularScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PopularGamesScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainScreenActivity"
+            android:exported="false" /> <!-- Hacer IntroActivity la primera pantalla -->
         <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".BuscadorTest"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
