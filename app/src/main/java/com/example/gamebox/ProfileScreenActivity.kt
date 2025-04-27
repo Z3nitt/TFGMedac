@@ -3,6 +3,8 @@ package com.example.gamebox
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +22,20 @@ class ProfileScreenActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var logoutBtn = findViewById<Button>(R.id.logoutBtn);
+
+        val logoutBtn = findViewById<Button>(R.id.logoutBtn)
+        val backBtn = findViewById<ImageButton>(R.id.backBtn)
+        val userEmailText = findViewById<TextView>(R.id.userEmailText)
+
+        val usuario = FirebaseAuth.getInstance().currentUser
+        var email = usuario?.email //Comprueba si el usuario es nulo por las dudas
+
+        userEmailText.setText(email)
+
+        //Listener para volver atras
+        backBtn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed() //Vuelve a la activity anterior
+        }
 
         //Listener para cerrar sesion
         logoutBtn.setOnClickListener {
