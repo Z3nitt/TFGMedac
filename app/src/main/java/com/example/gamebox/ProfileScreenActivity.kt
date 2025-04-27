@@ -26,15 +26,26 @@ class ProfileScreenActivity : AppCompatActivity() {
         val logoutBtn = findViewById<Button>(R.id.logoutBtn)
         val backBtn = findViewById<ImageButton>(R.id.backBtn)
         val userEmailText = findViewById<TextView>(R.id.userEmailText)
+        val usernameText = findViewById<TextView>(R.id.usernameText)
+        val editProfileBottomSheet = EditProfileBottomSheet()
+        val editProfileBtn = findViewById<Button>(R.id.editProfileBtn)
 
         val usuario = FirebaseAuth.getInstance().currentUser
         var email = usuario?.email //Comprueba si el usuario es nulo por las dudas
+        var username = usuario?.displayName
 
         userEmailText.setText(email)
+        usernameText.setText(username)
 
         //Listener para volver atras
         backBtn.setOnClickListener {
             onBackPressedDispatcher.onBackPressed() //Vuelve a la activity anterior
+        }
+
+        //Listener para el boton de editar el perfil
+        editProfileBtn.setOnClickListener{
+            //Muestra el bottomSheetFragment
+            editProfileBottomSheet.show(supportFragmentManager, editProfileBottomSheet.tag)
         }
 
         //Listener para cerrar sesion
