@@ -10,11 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 
 class IntroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            // Si el usuario ya esta logueado anteriormente, pasa directamente a la pantalla principal
+            startActivity(Intent(this, MainScreenActivity::class.java))
+            finish()
+            return
+        }
 
         val viewPager = findViewById<ViewPager2>(R.id.introViewPager)
         val tabLayout = findViewById<TabLayout>(R.id.tabDots)
