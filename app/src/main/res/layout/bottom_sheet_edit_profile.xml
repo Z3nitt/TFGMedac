@@ -57,10 +57,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAccessibility="yes"
-            app:startIconDrawable="@drawable/ic_edit" />
+            app:startIconDrawable="@drawable/ic_edit"
+            android:autofillHints=""
+            android:importantForAutofill="no"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Campo de texto para Email -->
+    <!-- Por ahora esta desactivado-->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +77,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAccessibility="yes"
-            app:startIconDrawable="@drawable/ic_edit" />
+            app:startIconDrawable="@drawable/ic_edit"
+            android:autofillHints=""
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:longClickable="false"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

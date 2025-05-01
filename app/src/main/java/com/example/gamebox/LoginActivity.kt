@@ -112,13 +112,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun logUser() {
+        Log.e("Firebase",  emailEditText.text.toString() + " " +passwordEditText.text.toString() )
         FirebaseAuth.getInstance()
             .signInWithEmailAndPassword(
                 emailEditText.text.toString(),
                 passwordEditText.text.toString()
             )
             .addOnCompleteListener {
-                if (!it.isSuccessful) {
+                if (it.isSuccessful) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                     showHome()
                 } else {

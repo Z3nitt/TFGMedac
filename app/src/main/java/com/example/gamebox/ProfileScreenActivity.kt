@@ -44,6 +44,13 @@ class ProfileScreenActivity : AppCompatActivity() {
 
         //Listener para el boton de editar el perfil
         editProfileBtn.setOnClickListener{
+            //Listener para cuando actualiza el perfil, para actualizar la ventana actual
+            editProfileBottomSheet.profileUpdatedListener = object : OnProfileUpdatedListener {
+                override fun onProfileUpdated(newUsername: String) {
+                    // Actualiza el nombre en la UI del perfil
+                    usernameText.text = newUsername
+                }
+            }
             //Muestra el bottomSheetFragment
             editProfileBottomSheet.show(supportFragmentManager, editProfileBottomSheet.tag)
         }
