@@ -1,33 +1,34 @@
 package com.example.gamebox
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
 import com.example.gamebox.steam.viewmodel.SearchViewModel
 
-class MainActivity : ComponentActivity() {
+class SearchActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Capturamos la Activity
-            val activity = this@MainActivity
+            // Capturamos la Activity para poder llamar finish()
+            val activity = this@SearchActivity
             MaterialTheme {
                 Scaffold(
                     topBar = {
@@ -45,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
+                        // Aquí llamas a tu SearchScreen con la callback
                         SearchScreen(
                             viewModel = viewModel(),
                             onGameSelected = { selectedItem ->
@@ -73,69 +75,6 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SearchScreen(
-    viewModel: SearchViewModel = viewModel(),
-    onGameSelected: (SearchViewModel.ResultItem) -> Unit
-) {
-    val query by remember { derivedStateOf { viewModel.query } }
-    val suggestions by remember { derivedStateOf { viewModel.suggestions } }
-    var expanded by remember { mutableStateOf(false) }
-
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        OutlinedTextField(
-            value = query,
-            onValueChange = {
-                viewModel.onQueryChange(it)
-                expanded = true
-            },
-            label = { Text("Nombre de juego") },
-            modifier = Modifier.fillMaxWidth(),
-            trailingIcon = {
-                IconButton(onClick = { expanded = !expanded }) {
-                    Icon(
-                        imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = null
-                    )
-                }
-            }
-        )
-
-        if (expanded && suggestions.isNotEmpty()) {
-            LazyColumn(
-                Modifier
-                    .fillMaxWidth()
-                    .heightIn(max = 200.dp)
-            ) {
-                items(suggestions) { item ->
-                    val name = when (item) {
-                        is SearchViewModel.ResultItem.Steam -> item.info.name
-                        is SearchViewModel.ResultItem.Epic  -> item.info.title
-                        is SearchViewModel.ResultItem.Both  -> item.steam.name
-                    }
-                    Text(
-                        text = name,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                viewModel.selectItem(item)
-                                onGameSelected(item)
-                                expanded = false
-                            }
-                            .padding(8.dp)
-                    )
-                    Divider()
                 }
             }
         }

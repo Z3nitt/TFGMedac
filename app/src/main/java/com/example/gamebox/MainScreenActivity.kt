@@ -3,6 +3,7 @@ package com.example.gamebox
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -28,10 +29,15 @@ class MainScreenActivity : AppCompatActivity() {
         val pfScreen: ImageView = findViewById(R.id.pfp)
         val moreText: TextView = findViewById(R.id.more)
         val more2Text: TextView = findViewById(R.id.more2)
+        val searchBar: EditText = findViewById(R.id.search_bar)
+        searchBar.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.openDrawer, R.string.closeDrawer
         )
+
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -70,11 +76,11 @@ class MainScreenActivity : AppCompatActivity() {
     private fun setupDrawerMenu() {
         // Configurar los elementos del menú lateral para que lleve a las correspondientes pantallas
 
-        /*findViewById<TextView>(R.id.menu_juegoteca).setOnClickListener {
+        findViewById<TextView>(R.id.menu_juegoteca).setOnClickListener {
             navigateTo(JuegotecaActivity::class.java)
         }
 
-        findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
+        /*findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
             navigateTo(OfertasActivity::class.java)
         }
 
