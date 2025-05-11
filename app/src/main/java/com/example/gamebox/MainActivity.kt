@@ -50,24 +50,32 @@ class MainActivity : ComponentActivity() {
                             onGameSelected = { selectedItem ->
                                 val intent = Intent(activity, GameDetailActivity::class.java).apply {
                                     putExtra("item_type", selectedItem::class.simpleName)
+                                    // dentro de onGameSelected = { selectedItem -> … }
                                     when (selectedItem) {
                                         is SearchViewModel.ResultItem.Steam -> {
                                             putExtra("steam_appid", selectedItem.info.appid)
-                                            putExtra("steam_name", selectedItem.info.name)
+                                            putExtra("steam_name",  selectedItem.info.name)
                                         }
                                         is SearchViewModel.ResultItem.Epic -> {
-                                            putExtra("epic_id", selectedItem.info.id)
+                                            putExtra("epic_id",    selectedItem.info.id)
                                             putExtra("epic_title", selectedItem.info.title)
                                             putExtra("epic_image", selectedItem.info.imageUrl)
+                                            // ← Usa selectedItem.info.price aquí:
+                                            putExtra("epic_price", selectedItem.info.price)
                                         }
                                         is SearchViewModel.ResultItem.Both -> {
                                             putExtra("steam_appid", selectedItem.steam.appid)
-                                            putExtra("steam_name", selectedItem.steam.name)
-                                            putExtra("epic_id", selectedItem.epic.id)
-                                            putExtra("epic_title", selectedItem.epic.title)
-                                            putExtra("epic_image", selectedItem.epic.imageUrl)
+                                            putExtra("steam_name",  selectedItem.steam.name)
+                                            putExtra("epic_id",     selectedItem.epic.id)
+                                            putExtra("epic_title",  selectedItem.epic.title)
+                                            putExtra("epic_image",  selectedItem.epic.imageUrl)
+                                            // ← Y aquí:
+                                            putExtra("epic_price",  selectedItem.epic.price)
                                         }
                                     }
+
+
+
                                 }
                                 activity.startActivity(intent)
                             }

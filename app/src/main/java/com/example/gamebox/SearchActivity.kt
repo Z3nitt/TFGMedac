@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gamebox.steam.viewmodel.SearchViewModel
+import androidx.compose.ui.graphics.Color
 
 class SearchActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -31,6 +32,7 @@ class SearchActivity : ComponentActivity() {
             val activity = this@SearchActivity
             MaterialTheme {
                 Scaffold(
+                    containerColor = Color(0xFFDFFFE0),
                     topBar = {
                         TopAppBar(
                             title = { Text("Buscar Juego") },

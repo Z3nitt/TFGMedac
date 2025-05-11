@@ -52,6 +52,10 @@
             android:exported="false" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".GameDetailActivity"/>
+        <activity android:name=".JuegotecaActivity" />
+        <activity android:name=".VerColeccionesActivity" />
+        <activity android:name=".CollectionDetailActivity" />
+        <activity android:name=".GamesListActivity" />
     </application>
 
 </manifest>
