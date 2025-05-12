@@ -93,10 +93,10 @@ class MainScreenActivity : AppCompatActivity() {
             navigateTo(JuegotecaActivity::class.java)
         }
 
-        /*findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
-            navigateTo(OfertasActivity::class.java)
+        findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
+            navigateTo(OffersActivity::class.java)
         }
-
+        /*
         findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
             navigateTo(ResenasActivity::class.java)
         }

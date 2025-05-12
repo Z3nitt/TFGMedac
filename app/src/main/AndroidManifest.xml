@@ -56,6 +56,7 @@
         <activity android:name=".VerColeccionesActivity" />
         <activity android:name=".CollectionDetailActivity" />
         <activity android:name=".GamesListActivity" />
+        <activity android:name=".OffersActivity" />
     </application>
 
 </manifest>
