@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
+import com.google.firebase.auth.FirebaseAuth
 
 class MainScreenActivity : AppCompatActivity() {
 
@@ -30,6 +31,18 @@ class MainScreenActivity : AppCompatActivity() {
         val moreText: TextView = findViewById(R.id.more)
         val more2Text: TextView = findViewById(R.id.more2)
         val searchBar: EditText = findViewById(R.id.search_bar)
+
+        val drawerProfileImage: ImageView = findViewById(R.id.drawer_profile_image)
+        val drawerName: TextView = findViewById(R.id.drawer_name)
+        val drawerEmail: TextView = findViewById(R.id.drawer_email)
+
+        val usuario = FirebaseAuth.getInstance().currentUser
+        var userEmail = usuario?.email
+        var username = usuario?.displayName
+
+        drawerName.text = username
+        drawerEmail.text = userEmail
+
         searchBar.setOnClickListener {
             startActivity(Intent(this, SearchActivity::class.java))
         }
@@ -108,7 +121,7 @@ class MainScreenActivity : AppCompatActivity() {
             navigateTo(ProfileScreenActivity::class.java)
         }*/
 
-        findViewById<ImageView>(R.id.drawer_pfp).setOnClickListener {
+        findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)
         }
     }

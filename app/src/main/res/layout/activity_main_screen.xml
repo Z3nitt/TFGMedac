@@ -236,7 +236,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/drawer_pfp"
+                android:id="@+id/drawer_profile_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/avatar"
@@ -253,7 +253,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/drawer_nickname"
+                android:id="@+id/drawer_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UsuarioDePrueba54"
