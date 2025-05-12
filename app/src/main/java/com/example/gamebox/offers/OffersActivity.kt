@@ -2,6 +2,8 @@ package com.example.gamebox
 
 import OffersAdapter
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,12 +30,16 @@ class OffersActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        val loader = findViewById<ProgressBar>(R.id.loader)
+        loader.visibility = View.VISIBLE
 
         recyclerOffers = findViewById(R.id.recyclerOffers)
         recyclerOffers.layoutManager = GridLayoutManager(this, 2)
 
         lifecycleScope.launch {
-            val steamGames = SteamRepository.getTopDiscountedGames(10)
+            val steamGames = SteamRepository.getTopDiscountedGames()
+            loader.visibility = View.GONE
+
             offersAdapter = OffersAdapter(steamGames)
             recyclerOffers.adapter = offersAdapter
         }

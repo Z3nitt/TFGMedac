@@ -17,7 +17,7 @@ class OffersViewModel : ViewModel() {
 
     private fun loadGames() {
         viewModelScope.launch {
-            val result = SteamRepository.getTopDiscountedGames(10)
+            val result = SteamRepository.getTopDiscountedGames()
             _games.clear()
             _games.addAll(result)
         }

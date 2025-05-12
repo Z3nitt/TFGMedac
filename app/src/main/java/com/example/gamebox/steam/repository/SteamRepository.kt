@@ -27,7 +27,7 @@ private interface SteamApi {
         @Query("term") term: String
     ): SearchResponse
 
-    //Endpoint que obtiene los juegos en oferta
+    //Endpoint que obtiene los 10 juegos mas destacados en oferta
     @GET("/api/featuredcategories")
     suspend fun getFeatured(@Query("cc") country: String = "us"): FeaturedResponse
 
@@ -92,9 +92,9 @@ object SteamRepository {
         }
     }
     /** Obtiene los primeros 10 juegos con ofertas especiales */
-    suspend fun getTopDiscountedGames(limit: Int = 10): List<FeaturedGame> = withContext(Dispatchers.IO) {
+    suspend fun getTopDiscountedGames(): List<FeaturedGame> = withContext(Dispatchers.IO) {
         try {
-            api.getFeatured().specials.items.take(limit)
+            api.getFeatured().specials.items
         } catch (_: Exception) {
             emptyList()
         }
