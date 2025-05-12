@@ -26,7 +26,30 @@ private interface SteamApi {
         @Query("l") lang: String = "en",
         @Query("term") term: String
     ): SearchResponse
+
+    //Endpoint que obtiene los juegos en oferta
+    @GET("/api/featuredcategories")
+    suspend fun getFeatured(@Query("cc") country: String = "us"): FeaturedResponse
+
 }
+
+data class FeaturedResponse(
+    val specials: SpecialsCategory
+)
+
+data class SpecialsCategory(
+    val items: List<FeaturedGame>
+)
+
+data class FeaturedGame(
+    val id: Int,
+    val name: String,
+    @Json(name = "header_image") val image: String,
+    @Json(name = "discount_percent") val discountPercent: Int,
+    @Json(name = "original_price") val originalPrice: Int?,
+    @Json(name = "final_price") val finalPrice: Int?,
+    val currency: String
+)
 
 data class SearchResponse(val items: List<SearchItem>)
 data class SearchItem(
@@ -68,4 +91,15 @@ object SteamRepository {
             null
         }
     }
+    /** Obtiene los primeros 10 juegos con ofertas especiales */
+    suspend fun getTopDiscountedGames(limit: Int = 10): List<FeaturedGame> = withContext(Dispatchers.IO) {
+        try {
+            api.getFeatured().specials.items.take(limit)
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+
+
 }

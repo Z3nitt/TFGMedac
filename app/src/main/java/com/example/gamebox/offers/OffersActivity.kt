@@ -1,11 +1,15 @@
 package com.example.gamebox
 
+import OffersAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebox.Offers.OfferGame
+import com.example.gamebox.steam.repository.SteamRepository
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.launch
 
 class OffersActivity : AppCompatActivity() {
 
@@ -28,20 +32,11 @@ class OffersActivity : AppCompatActivity() {
         recyclerOffers = findViewById(R.id.recyclerOffers)
         recyclerOffers.layoutManager = GridLayoutManager(this, 2)
 
-        val offerList = listOf(
-            OfferGame("Wolverine Venganza", R.drawable.oblivion, "14,99€"),
-            OfferGame("Dr. Stone #27", R.drawable.oblivion, "9,99€"),
-            OfferGame("HULK #12", R.drawable.oblivion, "12,49€"),
-            OfferGame("Daredevil", R.drawable.oblivion, "11,99€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-            OfferGame("Blazer", R.drawable.oblivion, "10,00€"),
-        )
-
-        offersAdapter = OffersAdapter(offerList)
-        recyclerOffers.adapter = offersAdapter
+        lifecycleScope.launch {
+            val steamGames = SteamRepository.getTopDiscountedGames(10)
+            offersAdapter = OffersAdapter(steamGames)
+            recyclerOffers.adapter = offersAdapter
+        }
     }
+
 }
