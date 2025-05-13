@@ -3,6 +3,7 @@ package com.example.gamebox
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
+import com.google.firebase.auth.FirebaseAuth
 
 class MainScreenActivity : AppCompatActivity() {
 
@@ -28,10 +30,27 @@ class MainScreenActivity : AppCompatActivity() {
         val pfScreen: ImageView = findViewById(R.id.pfp)
         val moreText: TextView = findViewById(R.id.more)
         val more2Text: TextView = findViewById(R.id.more2)
+        val searchBar: EditText = findViewById(R.id.search_bar)
+
+        val drawerProfileImage: ImageView = findViewById(R.id.drawer_profile_image)
+        val drawerName: TextView = findViewById(R.id.drawer_name)
+        val drawerEmail: TextView = findViewById(R.id.drawer_email)
+
+        val usuario = FirebaseAuth.getInstance().currentUser
+        var userEmail = usuario?.email
+        var username = usuario?.displayName
+
+        drawerName.text = username
+        drawerEmail.text = userEmail
+
+        searchBar.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.openDrawer, R.string.closeDrawer
         )
+
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -68,22 +87,18 @@ class MainScreenActivity : AppCompatActivity() {
     }
 
     private fun setupDrawerMenu() {
-
-        findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
-            navigateTo(ReviewsScreenActivity::class.java)
-        }
-
-        findViewById<TextView>(R.id.menu_configuracion).setOnClickListener {
-            navigateTo(SettingsViewActivity::class.java)
-        }
         // Configurar los elementos del menú lateral para que lleve a las correspondientes pantallas
 
-        /*findViewById<TextView>(R.id.menu_juegoteca).setOnClickListener {
+        findViewById<TextView>(R.id.menu_juegoteca).setOnClickListener {
             navigateTo(JuegotecaActivity::class.java)
         }
 
         findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
-            navigateTo(OfertasActivity::class.java)
+            navigateTo(OffersActivity::class.java)
+        }
+        /*
+        findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
+            navigateTo(ResenasActivity::class.java)
         }
 
         findViewById<TextView>(R.id.menu_novedades).setOnClickListener {
@@ -94,6 +109,10 @@ class MainScreenActivity : AppCompatActivity() {
             navigateTo(LogrosActivity::class.java)
         }
 
+        findViewById<TextView>(R.id.menu_configuracion).setOnClickListener {
+            navigateTo(ConfiguracionActivity::class.java)
+        }
+
         findViewById<TextView>(R.id.menu_ayuda).setOnClickListener {
             navigateTo(AyudaActivity::class.java)
         }
@@ -102,7 +121,7 @@ class MainScreenActivity : AppCompatActivity() {
             navigateTo(ProfileScreenActivity::class.java)
         }*/
 
-        findViewById<ImageView>(R.id.drawer_pfp).setOnClickListener {
+        findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)
         }
     }

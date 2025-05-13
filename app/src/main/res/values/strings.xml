@@ -4,12 +4,4 @@
     <string name="openDrawer">Abrir Menú</string>
     <string name="closeDrawer">Cerrar Menú</string>
     <string name="nickname">Usuario123</string>
-    <string name="usuarios_bloqueados_title">Usuarios bloqueados</string>
-    <string name="empty_blocked_users">No has bloqueado a ningún usuario</string>
-    <string name="button_unblock">Desbloquear</string>
-    <string name="app_logo">Logo de la app</string>
-    <string name="terms_full_text">
-    1. Introducción Estos términos y condiciones regulan el uso de la aplicación [Nombre de la App]. Al acceder o usar la app, aceptas cumplir con estos términos. 2. Uso Aceptable - No podrás usar la app para actividades ilegales. - No está permitido el acceso no autorizado a cuentas de otros usuarios. 3. Privacidad Tu privacidad es importante. Consulta nuestra Política de Privacidad para más detalles. 4. Modificaciones Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación.
-    </string>
-
 </resources>

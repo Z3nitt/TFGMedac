@@ -15,27 +15,6 @@
         android:theme="@style/Theme.Gamebox"
         tools:targetApi="31">
         <activity
-            android:name=".settingsactivities.condicionesdeuso"
-            android:exported="false" />
-        <activity
-            android:name=".settingsactivities.reportaproblem"
-            android:exported="false" />
-        <activity
-            android:name=".settingsactivities.helpcenter"
-            android:exported="false" />
-        <activity
-            android:name=".settingsactivities.renewsubscription"
-            android:exported="false" />
-        <activity
-            android:name=".settingsactivities.blockedusers"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ReviewsScreenActivity"
-            android:exported="false" />
-        <activity
             android:name=".SuscriptionScreenActivity"
             android:exported="false" />
         <activity
@@ -71,6 +50,13 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".GameDetailActivity"/>
+        <activity android:name=".JuegotecaActivity" />
+        <activity android:name=".VerColeccionesActivity" />
+        <activity android:name=".CollectionDetailActivity" />
+        <activity android:name=".GamesListActivity" />
+        <activity android:name=".OffersActivity" />
     </application>
 
 </manifest>
