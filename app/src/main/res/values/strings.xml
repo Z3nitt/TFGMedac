@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gamebox</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="openDrawer">Abrir Menú</string>
+    <string name="closeDrawer">Cerrar Menú</string>
+    <string name="nickname">Usuario123</string>
 </resources>

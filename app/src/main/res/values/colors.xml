@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primary">#00C853</color> <!-- Verde neón (gamer style) para botones, acción -->
+    <color name="secondary">#1B3B1A</color> <!-- Verde oscuro elegante, ideal para texto -->
+    <color name="light_background">#DFFFE0</color> <!-- Verde pastel claro, limpio y suave-->
+    <color name="dark_background">#1E1E1E</color> <!-- Opción para pantallas oscuras o loading -->
+    <color name="error">#FF5252</color> <!-- Rojo vibrante, perfecto para alertas-->
+    <color name="success">#69F0AE</color> <!-- Verde menta suave, para inputs validados -->
+    <color name="extra_accent">#FFD600</color> <!-- Amarillo pixel para destacar -->
+    <color name="secondary_container">#F5F5F5</color> <!--Gris claro para fondos secundarios-->
 </resources>

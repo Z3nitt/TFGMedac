@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFFFE0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:paddingTop="64dp"
+        android:gravity="center_horizontal">
+
+        <!-- Flecha volver -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Volver"
+            android:layout_gravity="start"
+            android:layout_marginBottom="16dp" />
+
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar sesión"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#1B3B1A"
+            android:layout_marginBottom="32dp" />
+
+
+
+
+
+
+        <!-- Nombre de usuario -->
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#1B3B1A"
+            android:hint="Nombre de usuario..."
+            android:autofillHints=""
+            android:importantForAutofill="no"/>
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#1B3B1A"
+            android:hint="Correo electrónico..."
+            android:inputType="textEmailAddress" />
+
+        <!-- Contraseña -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña..."
+            android:autofillHints=""
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:backgroundTint="#1B3B1A"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón acción -->
+        <Button
+            android:id="@+id/actionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Iniciar sesión"
+            android:backgroundTint="#00C853"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>
