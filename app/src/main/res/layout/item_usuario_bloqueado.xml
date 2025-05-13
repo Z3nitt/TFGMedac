@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardElevation="2dp"
+    android:background="#DFFFE0"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Avatar del usuario -->
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/avatar"
+            android:contentDescription="Avatar"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Nombre y fecha de bloqueo -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UsuarioEjemplo"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvBlockDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bloqueado el 12/05/2023"
+                android:textColor="@color/black"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!-- Botón para desbloquear -->
+        <Button
+            android:id="@+id/btnDesbloquear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desbloquear"
+            android:textColor="@color/red_500"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

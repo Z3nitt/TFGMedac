@@ -10,4 +10,8 @@
     <color name="success">#69F0AE</color> <!-- Verde menta suave, para inputs validados -->
     <color name="extra_accent">#FFD600</color> <!-- Amarillo pixel para destacar -->
     <color name="secondary_container">#F5F5F5</color> <!--Gris claro para fondos secundarios-->
+    <color name="red_500">#F44336</color>
+    <color name="red_light">#FFEBEE</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
 </resources>

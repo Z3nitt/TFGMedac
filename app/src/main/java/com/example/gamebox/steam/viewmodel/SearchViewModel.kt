@@ -1,144 +1,185 @@
 package com.example.gamebox.steam.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gamebox.steam.model.AppInfo
+import com.example.gamebox.steam.repository.SteamRepository
+import com.example.gamebox.epic.model.EpicAppInfo
+import com.example.gamebox.epic.repository.EpicRepository
+import com.example.gamebox.epic.repository.SEARCH_QUERY
+import com.example.gamebox.epic.model.GraphQLRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.gamebox.epic.model.EpicAppInfo
-import com.example.gamebox.epic.repository.EpicRepository
-import com.example.gamebox.steam.model.AppInfo
-import com.example.gamebox.steam.model.SteamAppDetails
-import com.example.gamebox.steam.repository.SteamRepository
-import kotlinx.coroutines.launch
 
+/**
+ * ViewModel unificado para búsquedas en Steam y Epic Store.
+ */
 class SearchViewModel : ViewModel() {
-    private val steamRepo = SteamRepository
-    private val epicRepo  = EpicRepository()
+    private val steamRepo = SteamRepository()
+    private val epicRepo = EpicRepository()
 
     var query by mutableStateOf("")
         private set
 
-    var suggestions by mutableStateOf<List<ResultItem>>(emptyList())
+    // null = no buscado; true/false = encontrado o no
+    var exists by mutableStateOf<Boolean?>(null)
+        private set
+
+    // Puede contener una o dos URLs de cabecera
+    var headerUrls by mutableStateOf<List<String>>(emptyList())
         private set
 
     var selectedItem by mutableStateOf<ResultItem?>(null)
         private set
 
-    var headerUrls by mutableStateOf<List<String>>(emptyList())
+    // Carga de apps de Steam al iniciar
+    private var steamApps: List<AppInfo> = emptyList()
+
+    // Sugerencias de búsqueda: Steam + Epic, sin duplicados
+    var suggestions by mutableStateOf<List<ResultItem>>(emptyList())
         private set
 
-    var steamPrice by mutableStateOf<String?>(null)
-        private set
-
-    var epicPrice by mutableStateOf<String?>(null)
-        private set
+    init {
+        viewModelScope.launch {
+            steamApps = steamRepo.fetchAllApps()
+        }
+    }
 
     /**
-     * Al cambiar texto, recarga sugerencias de cada tienda.
-     * Atrapa errores HTTP/parseo para que no crashee.
+     * Actualiza la consulta y refresca sugerencias.
      */
     fun onQueryChange(text: String) {
         query = text
-        suggestions = emptyList()
-        selectedItem = null
+        exists = null
         headerUrls = emptyList()
-        steamPrice = null
-        epicPrice = null
+        selectedItem = null
 
         viewModelScope.launch {
-            // 1) Steam
-            val steamInfos = try {
-                steamRepo.searchApps(text)
-            } catch (e: Exception) {
-                Log.w("SearchVM", "Error fetching Steam suggestions", e)
-                emptyList<AppInfo>()
-            }
-            val steamItems = steamInfos.take(5).map { ResultItem.Steam(it) }
+            // 1) Obtén hasta 5 sugerencias de Steam
+            val steamSug = steamApps
+                .filter { it.name.contains(text, ignoreCase = true) }
+                .take(5)
+                .map { ResultItem.Steam(it) }
 
-            // 2) Epic
-            val epicInfos = try {
-                epicRepo.searchApps(text)
-            } catch (e: Exception) {
-                Log.w("SearchVM", "Error fetching Epic suggestions", e)
-                emptyList<EpicAppInfo>()
-            }
-            val epicItems = epicInfos.take(5).map { ResultItem.Epic(it) }
+            // 2) Obtén hasta 5 sugerencias de Epic
+            val epicSug = epicRepo.searchApps(text)
+                .take(5)
+                .map { ResultItem.Epic(it) }
 
-            // 3) Combina y deduplica por título
-            suggestions = (steamItems + epicItems)
-                .groupBy {
-                    when (it) {
-                        is ResultItem.Steam -> it.info.name
-                        is ResultItem.Epic  -> it.info.title
-                        is ResultItem.Both  -> it.steam.name
+            // 3) Agrupa por nombre para evitar duplicados
+            suggestions = (steamSug + epicSug)
+                .groupBy { item ->
+                    when (item) {
+                        is ResultItem.Steam -> item.info.name
+                        is ResultItem.Epic  -> item.info.title
+                        is ResultItem.Both  -> item.steam.name
                     }
                 }
                 .map { (_, items) ->
-                    val s = items.filterIsInstance<ResultItem.Steam>().firstOrNull()
-                    val e = items.filterIsInstance<ResultItem.Epic>().firstOrNull()
+                    val steamItem = items.filterIsInstance<ResultItem.Steam>().firstOrNull()
+                    val epicItem  = items.filterIsInstance<ResultItem.Epic>().firstOrNull()
                     when {
-                        s != null && e != null -> ResultItem.Both(s.info, e.info)
-                        s != null              -> s
-                        e != null              -> e
-                        else                   -> items.first()
+                        steamItem != null && epicItem != null ->
+                            ResultItem.Both(steamItem.info, epicItem.info)
+                        steamItem != null -> steamItem
+                        epicItem  != null -> epicItem
+                        else -> items.first()
                     }
                 }
         }
     }
 
     /**
-     * Cuando el usuario selecciona un juego, carga cabeceras e intenta
-     * sacar el precio de Steam + usa el price que venga en EpicAppInfo.
+     * Selecciona un ítem de la lista de sugerencias, detectando si existe en ambas tiendas.
      */
     fun selectItem(item: ResultItem) {
-        selectedItem = item
-        headerUrls = emptyList()
-        steamPrice = null
-        epicPrice = null
+        // Fija el query al nombre exacto
+        query = when (item) {
+            is ResultItem.Steam -> item.info.name
+            is ResultItem.Epic  -> item.info.title
+            is ResultItem.Both  -> item.steam.name
+        }
+        exists = true
 
         viewModelScope.launch {
-            // cabeceras
-            headerUrls = when (item) {
-                is ResultItem.Steam -> listOf(
-                    "https://cdn.cloudflare.steamstatic.com/steam/apps/${item.info.appid}/header.jpg"
-                )
-                is ResultItem.Epic  -> listOf(item.info.imageUrl)
-                is ResultItem.Both  -> listOf(
-                    "https://cdn.cloudflare.steamstatic.com/steam/apps/${item.steam.appid}/header.jpg",
-                    item.epic.imageUrl
-                )
-            }
-
-            // precio Steam
-            val steamId = when (item) {
-                is ResultItem.Steam -> item.info.appid
-                is ResultItem.Both  -> item.steam.appid
-                else                -> null
-            }
-            if (steamId != null) {
-                try {
-                    val details: SteamAppDetails? = steamRepo.fetchAppDetails(steamId)
-                    steamPrice = details?.data?.priceOverview?.finalFormatted ?: "—"
-                } catch (e: Exception) {
-                    Log.w("SearchVM", "Error fetching Steam price", e)
-                    steamPrice = "—"
+            // Determina si el juego está en ambas tiendas
+            val finalItem = when (item) {
+                is ResultItem.Steam -> {
+                    // Busca en Epic por título exacto
+                    val epicMatch = epicRepo.searchApps(item.info.name)
+                        .firstOrNull { it.title.equals(item.info.name, ignoreCase = true) }
+                    if (epicMatch != null) ResultItem.Both(item.info, epicMatch) else item
                 }
+                is ResultItem.Epic -> {
+                    // Busca en Steam por nombre exacto
+                    val steamMatch = steamApps
+                        .firstOrNull { it.name.equals(item.info.title, ignoreCase = true) }
+                    if (steamMatch != null) ResultItem.Both(steamMatch, item.info) else item
+                }
+                is ResultItem.Both -> item
             }
 
-            // precio Epic (ya viene en EpicAppInfo.price)
-            epicPrice = when (item) {
-                is ResultItem.Epic -> item.info.price ?: "—"
-                is ResultItem.Both -> item.epic.price  ?: "—"
-                else               -> null
+            selectedItem = finalItem
+
+            // Prepara las URLs de cabecera
+            headerUrls = when (val sel = finalItem) {
+                is ResultItem.Steam -> listOf(
+                    "https://cdn.cloudflare.steamstatic.com/steam/apps/${sel.info.appid}/header.jpg"
+                )
+                is ResultItem.Epic -> listOf(sel.info.imageUrl)
+                is ResultItem.Both -> listOf(
+                    "https://cdn.cloudflare.steamstatic.com/steam/apps/${sel.steam.appid}/header.jpg",
+                    sel.epic.imageUrl
+                )
             }
         }
     }
 
+    /**
+     * Búsqueda manual exacta (opcional).
+     */
+    fun searchExact() {
+        viewModelScope.launch {
+            // Similar a selectItem pero usando solo coincidencias exactas
+            val steamMatch = steamApps
+                .firstOrNull { it.name.equals(query, ignoreCase = true) }
+            val epicMatch  = epicRepo.searchApps(query)
+                .firstOrNull { it.title.equals(query, ignoreCase = true) }
+
+            val sel = when {
+                steamMatch != null && epicMatch != null -> ResultItem.Both(steamMatch, epicMatch)
+                steamMatch != null -> ResultItem.Steam(steamMatch)
+                epicMatch  != null -> ResultItem.Epic(epicMatch)
+                else -> null
+            }
+
+            selectedItem = sel
+            exists = sel != null
+            headerUrls = sel?.let {
+                when (it) {
+                    is ResultItem.Steam -> listOf(
+                        "https://cdn.cloudflare.steamstatic.com/steam/apps/${it.info.appid}/header.jpg"
+                    )
+                    is ResultItem.Epic -> listOf(it.info.imageUrl)
+                    is ResultItem.Both -> listOf(
+                        "https://cdn.cloudflare.steamstatic.com/steam/apps/${it.steam.appid}/header.jpg",
+                        it.epic.imageUrl
+                    )
+                }
+            } ?: emptyList()
+        }
+    }
+
+    /**
+     * Representa un resultado de búsqueda.
+     */
     sealed class ResultItem {
-        data class Steam(val info: AppInfo)               : ResultItem()
-        data class Epic(val info: EpicAppInfo)            : ResultItem()
+        data class Steam(val info: AppInfo)   : ResultItem()
+        data class Epic(val info: EpicAppInfo) : ResultItem()
         data class Both(val steam: AppInfo, val epic: EpicAppInfo) : ResultItem()
     }
 }
