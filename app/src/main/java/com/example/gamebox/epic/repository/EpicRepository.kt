@@ -3,6 +3,7 @@ package com.example.gamebox.epic.repository
 
 import android.util.Log
 import com.example.gamebox.epic.model.EpicAppInfo
+import com.example.gamebox.epic.model.EpicDiscountedGame
 import com.example.gamebox.epic.model.GraphQLRequest
 import com.example.gamebox.epic.model.GraphQLResponse
 import com.example.gamebox.epic.model.EpicStoreData
@@ -15,6 +16,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.Locale
+import kotlin.math.roundToInt
+
 
 class EpicRepository {
     private val service: EpicGraphQLService
@@ -61,7 +64,8 @@ class EpicRepository {
             "start"    to start,
             "count"    to count,
             "country"  to country,
-            "locale"   to locale
+            "locale"   to locale,
+            "onSale" to false
         )
 
         val body = GraphQLRequest(
@@ -98,4 +102,80 @@ class EpicRepository {
                 )
             }
     }
+
+    private fun parsePrice(price: String?): Double? {
+        return price
+            ?.replace("[^\\d.,]".toRegex(), "") // elimina todo lo que no sea número, punto o coma
+            ?.replace(",", ".") // convierte coma decimal a punto
+            ?.toDoubleOrNull()
+    }
+
+    /** Obtiene los juegos en oferta de Epic*/
+    suspend fun searchDiscountedGames(
+        query: String = "",
+        start: Int = 0,
+        count: Int = 10
+    ): List<EpicDiscountedGame> = withContext(Dispatchers.IO) {
+        val locale  = Locale.getDefault().toLanguageTag()
+        val country = Locale.getDefault().country
+
+        val variables = mapOf(
+            "keywords" to query,
+            "start"    to start,
+            "count"    to count,
+            "country"  to country,
+            "locale"   to locale,
+            "onSale" to true
+        )
+
+        val body = GraphQLRequest(
+            operationName = "searchStore",
+            query         = EpicQueries.SEARCH_QUERY,
+            variables     = variables
+        )
+
+        val resp: GraphQLResponse<EpicStoreData> = service.searchStore(body)
+
+        resp.data
+            ?.Catalog
+            ?.searchStore
+            ?.elements
+            .orEmpty()
+            .map { el ->
+                val img = el.keyImages
+                    .firstOrNull { it.type == "DieselStoreFrontTall" }
+                    ?.url
+                    ?: el.keyImages.firstOrNull()?.url.orEmpty()
+
+                val totalPrice = el.price?.totalPrice
+                val fmt = totalPrice?.fmtPrice
+
+                val originalRaw = fmt?.originalPrice
+                val discountRaw = fmt?.discountPrice
+                Log.d("EPIC_PRICES", "title=${el.title}, original=$originalRaw, discount=$discountRaw")
+
+                val original = parsePrice(fmt?.originalPrice)
+                val discount = parsePrice(fmt?.discountPrice)
+
+
+                //Convierto el descuento en porcentaje
+                val percent = if (original != null && discount != null && original > 0) {
+                    (((original - discount) / original) * 100).roundToInt()
+                } else {
+                    null
+                }
+
+
+                EpicDiscountedGame(
+                    id              = el.id,
+                    title           = el.title,
+                    imageUrl        = img,
+                    originalPrice   = fmt?.originalPrice,
+                    finalPrice      = fmt?.discountPrice,
+                    discountPercent = percent?.toString()
+                )
+
+            }
+    }
+
 }

@@ -8,7 +8,8 @@ object EpicQueries {
       ${"$"}start: Int!,
       ${"$"}count: Int!,
       ${"$"}country: String!,
-      ${"$"}locale: String!
+      ${"$"}locale: String!,
+      ${"$"}onSale: Boolean!
     ) {
       Catalog {
         searchStore(
@@ -16,7 +17,8 @@ object EpicQueries {
           start: ${"$"}start,
           count: ${"$"}count,
           country: ${"$"}country,
-          locale: ${"$"}locale
+          locale: ${"$"}locale,
+          onSale: ${"$"}onSale
         ) {
           elements {
             id
@@ -25,6 +27,7 @@ object EpicQueries {
             keyImages { type url }
             price(country: ${"$"}country) {
               totalPrice {
+                discount
                 fmtPrice(locale: ${"$"}locale) {
                   discountPrice
                   originalPrice

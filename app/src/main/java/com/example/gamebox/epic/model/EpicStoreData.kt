@@ -27,12 +27,14 @@ data class PricePayload(
 )
 
 data class TotalPricePayload(
-    val fmtPrice: FormattedPricePayload?
+    val fmtPrice: FormattedPricePayload?,
+    val discount: Int?
 )
 
 data class FormattedPricePayload(
     val discountPrice: String?,
-    val originalPrice: String?
+    val originalPrice: String?,
+    //val discountPercent: String?
 )
 
 /** Representa la estructura de precio en la respuesta */
@@ -50,6 +52,15 @@ data class EpicAppInfo(
     val title: String,
     val imageUrl: String,
     val price: String?  // formato final
+)
+
+data class EpicDiscountedGame(
+    val id: String,
+    val title: String,
+    val imageUrl: String,
+    val originalPrice: String?,
+    val finalPrice: String?,
+    val discountPercent: String?
 )
 
 data class GraphQLRequest(

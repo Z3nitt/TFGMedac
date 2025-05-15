@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gamebox.R
-import com.example.gamebox.steam.repository.FeaturedGame
+import com.example.gamebox.UnifiedGame
 
-class OffersAdapter(private val games: List<FeaturedGame>) :
+class OffersAdapter(private val games: List<UnifiedGame>) :
     RecyclerView.Adapter<OffersAdapter.OfferViewHolder>() {
 
     inner class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,24 +29,25 @@ class OffersAdapter(private val games: List<FeaturedGame>) :
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
         val game = games[position]
 
-        holder.txtTitle.text = game.name
-        holder.txtOriginalPrice.text = formatPrice(game.originalPrice)
-        holder.txtFinalPrice.text = formatPrice(game.finalPrice)
+
+
+        holder.txtTitle.text = game.title
+        holder.txtOriginalPrice.text = game.originalPrice
+        holder.txtFinalPrice.text = game.finalPrice
         holder.txtDiscount.text = "-${game.discountPercent}%"
 
         holder.txtOriginalPrice.paintFlags =
             holder.txtOriginalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
+        if(game.finalPrice == "0"){
+            holder.txtFinalPrice.text = "GRATIS"
+        }
+
         Glide.with(holder.itemView.context)
-            .load(game.image)
+            .load(game.imageUrl)
             .into(holder.img)
     }
 
     override fun getItemCount(): Int = games.size
 
-    private fun formatPrice(price: Int?): String {
-        if (price == null) return "—"
-        val euros = price / 100.0
-        return "€%.2f".format(euros)
-    }
 }
