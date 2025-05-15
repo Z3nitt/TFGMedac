@@ -4,7 +4,9 @@ import OffersAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ProgressBar
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +20,8 @@ class OffersActivity : AppCompatActivity() {
 
     private lateinit var recyclerOffers: RecyclerView
     private lateinit var offersAdapter: OffersAdapter
+    private lateinit var fullList: List<UnifiedGame>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +29,7 @@ class OffersActivity : AppCompatActivity() {
 
         //Toolbar para la flecha de volver y titulo
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Juegos en oferta"
+        toolbar.title = "Juegos en oferta 🔥"
 
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -50,7 +54,8 @@ class OffersActivity : AppCompatActivity() {
                     imageUrl = it.image,
                     finalPrice = formatPrice(it.finalPrice),
                     originalPrice = formatPrice(it.originalPrice),
-                    discountPercent = it.discountPercent.toString()
+                    discountPercent = it.discountPercent.toString(),
+                    platform = "steam"
                 )
             }
 
@@ -60,12 +65,30 @@ class OffersActivity : AppCompatActivity() {
                     imageUrl = it.imageUrl,
                     finalPrice = it.finalPrice,
                     originalPrice = it.originalPrice,
-                    discountPercent = it.discountPercent
+                    discountPercent = it.discountPercent,
+                    platform = "epic"
                 )
             }
-            offersAdapter = OffersAdapter(allGames)
+            fullList = allGames
+            offersAdapter = OffersAdapter(fullList)
             recyclerOffers.adapter = offersAdapter
+
+            val platformFilter: Spinner = findViewById(R.id.platformFilter)
+
+            platformFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val filtered = when (position) {
+                    1 -> fullList.filter { it.platform == "steam" }
+                    2 -> fullList.filter { it.platform == "epic" }
+                    else -> fullList
+                }
+                    offersAdapter.updateList(filtered)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
         }
+
     }
 
     fun formatPrice(price: Int?): String {
@@ -75,11 +98,13 @@ class OffersActivity : AppCompatActivity() {
 
 }
 
+//Clase para reunir todos los juegos de cualquier plataforma
 data class UnifiedGame(
     val title: String,
     val imageUrl: String,
     val finalPrice: String?,
     val originalPrice: String?,
-    val discountPercent: String?
+    val discountPercent: String?,
+    val platform: String
 )
 

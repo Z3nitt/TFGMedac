@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.gamebox.R
 import com.example.gamebox.UnifiedGame
 
-class OffersAdapter(private val games: List<UnifiedGame>) :
+class OffersAdapter(private var games: List<UnifiedGame>) :
     RecyclerView.Adapter<OffersAdapter.OfferViewHolder>() {
 
     inner class OfferViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,6 +18,8 @@ class OffersAdapter(private val games: List<UnifiedGame>) :
         val txtOriginalPrice: TextView = view.findViewById(R.id.txtOriginalPrice)
         val txtFinalPrice: TextView = view.findViewById(R.id.txtFinalPrice)
         val txtDiscount: TextView = view.findViewById(R.id.txtDiscount)
+        val imgPlatformLogo: ImageView = view.findViewById(R.id.imgPlatformLogo)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferViewHolder {
@@ -28,8 +30,6 @@ class OffersAdapter(private val games: List<UnifiedGame>) :
 
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
         val game = games[position]
-
-
 
         holder.txtTitle.text = game.title
         holder.txtOriginalPrice.text = game.originalPrice
@@ -43,11 +43,28 @@ class OffersAdapter(private val games: List<UnifiedGame>) :
             holder.txtFinalPrice.text = "GRATIS"
         }
 
+        //Dependiendo de la plataforma, muestra el logo correspondiente
+        val logoRes = when (game.platform.lowercase()) {
+            "steam" -> R.drawable.ic_steam
+            "epic" -> R.drawable.ic_epic
+            else -> null
+        }
+
+        if (logoRes != null) {
+            holder.imgPlatformLogo.setImageResource(logoRes)
+        }
+
         Glide.with(holder.itemView.context)
             .load(game.imageUrl)
             .into(holder.img)
     }
 
     override fun getItemCount(): Int = games.size
+
+    fun updateList(newGames: List<UnifiedGame>) {
+        games = newGames
+        //Se puede hacer mas eficiente
+        notifyDataSetChanged()
+    }
 
 }

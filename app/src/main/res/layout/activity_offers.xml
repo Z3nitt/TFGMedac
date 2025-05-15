@@ -19,6 +19,13 @@
         android:titleTextColor="@color/black"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
+    <Spinner
+        android:id="@+id/platformFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:entries="@array/platform_filter_options" />
+
 <!--    Progress bar para cuando esta cargando la lista-->
     <ProgressBar
         android:id="@+id/loader"

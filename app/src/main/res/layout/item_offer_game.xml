@@ -70,5 +70,13 @@
             android:textColor="#D32F2F"
             android:gravity="center_horizontal"
             android:paddingBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/imgPlatformLogo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_margin="6dp"
+            android:src="@drawable/ic_steam" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

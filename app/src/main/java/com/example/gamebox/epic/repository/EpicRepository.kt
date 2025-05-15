@@ -114,7 +114,7 @@ class EpicRepository {
     suspend fun searchDiscountedGames(
         query: String = "",
         start: Int = 0,
-        count: Int = 10
+        count: Int = 20
     ): List<EpicDiscountedGame> = withContext(Dispatchers.IO) {
         val locale  = Locale.getDefault().toLanguageTag()
         val country = Locale.getDefault().country
