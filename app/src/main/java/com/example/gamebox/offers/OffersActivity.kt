@@ -75,6 +75,7 @@ class OffersActivity : AppCompatActivity() {
 
             val platformFilter: Spinner = findViewById(R.id.platformFilter)
 
+            //Listener para el Spinner para elegir las plataformas
             platformFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val filtered = when (position) {
