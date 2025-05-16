@@ -50,6 +50,7 @@ class OffersActivity : AppCompatActivity() {
 
             allGames += steamGames.map {
                 UnifiedGame(
+                    appId = it.id,
                     title = it.name,
                     imageUrl = it.image,
                     finalPrice = formatPrice(it.finalPrice),
@@ -101,6 +102,7 @@ class OffersActivity : AppCompatActivity() {
 
 //Clase para reunir todos los juegos de cualquier plataforma
 data class UnifiedGame(
+    val appId: Int? = null, //SOLO PARA STEAM
     val title: String,
     val imageUrl: String,
     val finalPrice: String?,

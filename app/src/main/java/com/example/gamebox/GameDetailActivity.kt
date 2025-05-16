@@ -69,19 +69,22 @@ fun DetailContent(
     // repositorio para re-fetch de Epic
     val epicRepo = remember { EpicRepository() }
     var detailEpicPrice by remember { mutableStateOf<String?>(null) }
+    var detailEpicDescription by remember { mutableStateOf<String?>(null) }
+
 
     LaunchedEffect(epicTitle) {
         epicTitle?.takeIf { it.isNotBlank() }?.let { title ->
-            detailEpicPrice = try {
-                epicRepo.searchApps(title, 0, 1)
-                    .firstOrNull()
-                    ?.price
-                    ?: "—"
+            val result = try {
+                epicRepo.searchApps(title, 0, 1).firstOrNull()
             } catch (_: Exception) {
-                "—"
+                null
             }
+
+            detailEpicPrice = result?.price ?: "—"
+            detailEpicDescription = result?.description
         }
     }
+
 
     // 1) ViewModel de búsqueda para Steam y cabeceras
     val searchVm: SearchViewModel = viewModel()
@@ -102,7 +105,8 @@ fun DetailContent(
                             id       = epicTitle.orEmpty(),
                             title    = epicTitle.orEmpty(),
                             imageUrl = epicImage.orEmpty(),
-                            price    = null
+                            price    = null,
+                            description = null
                         )
                     )
                 )
@@ -115,7 +119,8 @@ fun DetailContent(
                             id       = epicTitle.orEmpty(),
                             title    = epicTitle.orEmpty(),
                             imageUrl = epicImage.orEmpty(),
-                            price    = null
+                            price    = null,
+                            description = null
                         )
                     )
                 )
@@ -127,6 +132,9 @@ fun DetailContent(
     // precios y cabeceras
     val steamPrice by remember { derivedStateOf { searchVm.steamPrice } }
     val headerUrls by remember { derivedStateOf { searchVm.headerUrls } }
+
+    //Descripcion
+    val steamDescription by remember { derivedStateOf { searchVm.steamShortDescription } }
 
     // 2) ViewModel de librería
     val libVm: LibraryViewModel = viewModel()
@@ -219,6 +227,19 @@ fun DetailContent(
                 }
             }
         }
+
+        val descriptionText = when (type) {
+            SearchViewModel.ResultItem.Steam::class.simpleName -> steamDescription
+            SearchViewModel.ResultItem.Epic::class.simpleName  -> detailEpicDescription
+           // SearchViewModel.ResultItem.Both::class.simpleName  -> steamDescription ?: detailEpicDescription
+            else -> null
+        }
+
+        descriptionText?.let {
+            Spacer(Modifier.height(12.dp))
+            Text(text = it, style = MaterialTheme.typography.bodyMedium)
+        }
+
 
         Spacer(Modifier.height(24.dp))
         Button(onClick = { showAddDialog = true }, Modifier.fillMaxWidth()) {

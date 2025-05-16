@@ -1,3 +1,4 @@
+import android.content.Intent
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.gamebox.GameDetailActivity
 import com.example.gamebox.R
 import com.example.gamebox.UnifiedGame
 
@@ -57,6 +59,27 @@ class OffersAdapter(private var games: List<UnifiedGame>) :
         Glide.with(holder.itemView.context)
             .load(game.imageUrl)
             .into(holder.img)
+
+        /** Cuando hace click lo lleva a los detalles del juego */
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, GameDetailActivity::class.java).apply {
+                when (game.platform.lowercase()) {
+                    "steam" -> {
+                        putExtra("item_type", "Steam")
+                        putExtra("steam_appid", game.appId)
+                        putExtra("steam_name", game.title)
+                    }
+                    "epic" -> {
+                        putExtra("item_type", "Epic")
+                        putExtra("epic_title", game.title)
+                        putExtra("epic_image", game.imageUrl)
+                    }
+                }
+            }
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int = games.size

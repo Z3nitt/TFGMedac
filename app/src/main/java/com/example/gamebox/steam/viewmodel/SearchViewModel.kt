@@ -35,6 +35,9 @@ class SearchViewModel : ViewModel() {
     var epicPrice by mutableStateOf<String?>(null)
         private set
 
+    var steamShortDescription by mutableStateOf<String?>(null)
+        private set
+
     /**
      * Al cambiar texto, recarga sugerencias de cada tienda.
      * Atrapa errores HTTP/parseo para que no crashee.
@@ -121,6 +124,7 @@ class SearchViewModel : ViewModel() {
                 try {
                     val details: SteamAppDetails? = steamRepo.fetchAppDetails(steamId)
                     steamPrice = details?.data?.priceOverview?.finalFormatted ?: "—"
+                    steamShortDescription = details?.data?.shortDescription
                 } catch (e: Exception) {
                     Log.w("SearchVM", "Error fetching Steam price", e)
                     steamPrice = "—"

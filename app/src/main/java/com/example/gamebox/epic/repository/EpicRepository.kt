@@ -65,7 +65,6 @@ class EpicRepository {
             "count"    to count,
             "country"  to country,
             "locale"   to locale,
-            "onSale" to false
         )
 
         val body = GraphQLRequest(
@@ -97,6 +96,7 @@ class EpicRepository {
                 EpicAppInfo(
                     id       = el.id,
                     title    = el.title,
+                    description = el.description,
                     imageUrl = img,
                     price    = priceText
                 )
@@ -130,7 +130,7 @@ class EpicRepository {
 
         val body = GraphQLRequest(
             operationName = "searchStore",
-            query         = EpicQueries.SEARCH_QUERY,
+            query         = EpicQueries.SEARCH_OFFERS_QUERY,
             variables     = variables
         )
 
@@ -169,6 +169,7 @@ class EpicRepository {
                 EpicDiscountedGame(
                     id              = el.id,
                     title           = el.title,
+                    description = el.description,
                     imageUrl        = img,
                     originalPrice   = fmt?.originalPrice,
                     finalPrice      = fmt?.discountPrice,

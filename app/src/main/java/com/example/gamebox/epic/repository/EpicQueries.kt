@@ -22,6 +22,7 @@ object EpicQueries {
             id
             title
             namespace
+            description
             keyImages { type url }
             price(country: ${"$"}country) {
               totalPrice {
@@ -58,6 +59,7 @@ object EpicQueries {
             id
             title
             namespace
+            description
             keyImages { type url }
             price(country: ${"$"}country) {
               totalPrice {

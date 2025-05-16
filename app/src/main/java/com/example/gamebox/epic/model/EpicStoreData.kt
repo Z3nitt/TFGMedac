@@ -13,6 +13,7 @@ data class StoreElement(
     val title: String,
     val id: String,
     val namespace: String,
+    val description: String,
     val keyImages: List<KeyImage>,
     val price: PricePayload?    // ahora payload anidado
 )
@@ -50,6 +51,7 @@ data class Money(
 data class EpicAppInfo(
     val id: String,
     val title: String,
+    val description: String?,
     val imageUrl: String,
     val price: String?  // formato final
 )
@@ -57,6 +59,7 @@ data class EpicAppInfo(
 data class EpicDiscountedGame(
     val id: String,
     val title: String,
+    val description: String,
     val imageUrl: String,
     val originalPrice: String?,
     val finalPrice: String?,

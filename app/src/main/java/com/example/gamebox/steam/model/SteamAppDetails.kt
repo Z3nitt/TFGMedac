@@ -4,11 +4,12 @@ import com.squareup.moshi.Json
 
 /** Modelo para parsear la respuesta de https://store.steampowered.com/api/appdetails */
 data class SteamAppDetails(
-    @Json(name = "data") val data: AppData?
+    @Json(name = "data") val data: AppData?,
 )
 
 data class AppData(
-    @Json(name = "price_overview") val priceOverview: PriceOverview?
+    @Json(name = "price_overview") val priceOverview: PriceOverview?,
+    @Json(name = "short_description") val shortDescription: String?
 )
 
 data class PriceOverview(
