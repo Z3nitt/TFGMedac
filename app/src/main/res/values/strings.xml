@@ -9,4 +9,23 @@
         <item>Steam</item>
         <item>Epic Games</item>
     </string-array>
+
+    <!-- Strings para la pantalla de Suscripcion -->
+    <string name="go_premium">¡Hazte Premium!</string>
+    <string name="unlock_all_features">Desbloquea todas las funciones</string>
+    <string name="benefits">Beneficios</string>
+    <string name="benefit_1">Acceso a todas las funciones premium</string>
+    <string name="benefit_2">Sin anuncios</string>
+    <string name="benefit_3">Contenido exclusivo</string>
+    <string name="benefit_4">Soporte prioritario</string>
+    <string name="choose_plan">Elige tu plan</string>
+    <string name="monthly">Mensual</string>
+    <string name="monthly_price">3€/mes</string>
+    <string name="yearly">Anual (50% de descuento)</string>
+    <string name="yearly_price">20€/año</string>
+    <string name="lifetime">Vitalicio</string>
+    <string name="lifetime_price">50€ (único pago)</string>
+    <string name="subscribe_now">¡Suscríbete ahora!</string>
+    <string name="subscription_terms">La suscripción se renovará automáticamente. Puedes cancelar en cualquier momento.</string>
+    <string name="premium_icon">Icono Premium</string>
 </resources>

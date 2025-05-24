@@ -96,11 +96,20 @@ class MainScreenActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.menu_ofertas).setOnClickListener {
             navigateTo(OffersActivity::class.java)
         }
-        /*
+
         findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
-            navigateTo(ResenasActivity::class.java)
+            navigateTo(ReviewsScreenActivity::class.java)
         }
 
+        findViewById<TextView>(R.id.menu_configuracion).setOnClickListener {
+            navigateTo(SettingsViewActivity::class.java)
+        }
+
+        findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
+            navigateTo(ProfileScreenActivity::class.java)
+        }
+
+        /*
         findViewById<TextView>(R.id.menu_novedades).setOnClickListener {
             navigateTo(NovedadesActivity::class.java)
         }
@@ -109,17 +118,10 @@ class MainScreenActivity : AppCompatActivity() {
             navigateTo(LogrosActivity::class.java)
         }
 
-        findViewById<TextView>(R.id.menu_configuracion).setOnClickListener {
-            navigateTo(ConfiguracionActivity::class.java)
-        }
-
         findViewById<TextView>(R.id.menu_ayuda).setOnClickListener {
             navigateTo(AyudaActivity::class.java)
         }
-
-        findViewById<ImageView>(R.id.drawer_pfp).setOnClickListener {
-            navigateTo(ProfileScreenActivity::class.java)
-        }*/
+*/
 
         findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)
