@@ -24,10 +24,13 @@
             android:name=".NewGamesScreenActivity"
             android:exported="false" />
         <activity
+            android:name=".HelpScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".PopularScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".PopularGamesScreenActivity"
+            android:name=".PopularScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainScreenActivity"

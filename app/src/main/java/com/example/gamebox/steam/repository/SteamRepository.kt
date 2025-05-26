@@ -34,7 +34,8 @@ private interface SteamApi {
 }
 
 data class FeaturedResponse(
-    val specials: SpecialsCategory
+    val specials: SpecialsCategory,
+  @Json(name = "new_releases") val newReleases : SpecialsCategory
 )
 
 data class SpecialsCategory(
@@ -50,6 +51,13 @@ data class FeaturedGame(
     @Json(name = "final_price") val finalPrice: Int?,
     val currency: String
 )
+
+data class NewReleaseGame(
+    val name: String,
+    val image: String,
+    val price: String
+)
+
 
 data class SearchResponse(val items: List<SearchItem>)
 data class SearchItem(
@@ -99,6 +107,17 @@ object SteamRepository {
             emptyList()
         }
     }
+    /** Obtiene los primeros 10 juegos de novedades */
+    suspend fun getNewReleases(): List<FeaturedGame> = withContext(Dispatchers.IO) {
+        try {
+            api.getFeatured().newReleases.items
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+
+
 
 
 
