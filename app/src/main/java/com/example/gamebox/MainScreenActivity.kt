@@ -104,23 +104,18 @@ class MainScreenActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.menu_ayuda).setOnClickListener {
             navigateTo(HelpScreenActivity::class.java)
         }
-        /*
-        findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
-            navigateTo(ResenasActivity::class.java)
-        }
 
-        findViewById<TextView>(R.id.menu_logros).setOnClickListener {
-            navigateTo(LogrosActivity::class.java)
+        findViewById<TextView>(R.id.menu_resenas).setOnClickListener {
+            navigateTo(ReviewsScreenActivity::class.java)
         }
 
         findViewById<TextView>(R.id.menu_configuracion).setOnClickListener {
-            navigateTo(ConfiguracionActivity::class.java)
+            navigateTo(SettingsViewActivity::class.java)
         }
 
-
-        findViewById<ImageView>(R.id.drawer_pfp).setOnClickListener {
+        findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)
-        }*/
+        }
 
         findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)

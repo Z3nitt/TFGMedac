@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Gamebox"
         tools:targetApi="31">
         <activity
+            android:name=".GetPremiumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailedReview"
+            android:exported="false" />
+        <activity
             android:name=".SuscriptionScreenActivity"
             android:exported="false" />
         <activity
@@ -36,6 +42,12 @@
             android:name=".MainScreenActivity"
             android:exported="false" /> <!-- Hacer IntroActivity la primera pantalla -->
         <activity
+            android:name=".ReviewsScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
@@ -54,7 +66,7 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".GameDetailActivity"/>
+        <activity android:name=".GameDetailActivity" />
         <activity android:name=".JuegotecaActivity" />
         <activity android:name=".VerColeccionesActivity" />
         <activity android:name=".CollectionDetailActivity" />

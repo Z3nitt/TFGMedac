@@ -1,23 +1,15 @@
 package com.example.gamebox
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class SuscriptionScreenActivity : AppCompatActivity() {
+class DetailedReview : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_suscription_screen)
-
-        val goback: ImageView = findViewById(R.id.back)
-
-        goback.setOnClickListener {
-            startActivity(Intent(this, MainScreenActivity::class.java))
-        }
+        setContentView(R.layout.activity_detailed_review)
     }
 }
