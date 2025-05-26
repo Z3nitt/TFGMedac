@@ -120,6 +120,8 @@ class MainScreenActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.drawer_profile_image).setOnClickListener {
             navigateTo(ProfileScreenActivity::class.java)
         }
+
+
     }
 
     private fun <T : Any> navigateTo(activityClass: Class<T>) {

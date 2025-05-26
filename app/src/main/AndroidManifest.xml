@@ -15,9 +15,6 @@
         android:theme="@style/Theme.Gamebox"
         tools:targetApi="31">
         <activity
-            android:name=".GetPremiumActivity"
-            android:exported="false" />
-        <activity
             android:name=".DetailedReview"
             android:exported="false" />
         <activity
@@ -31,9 +28,6 @@
             android:exported="false" />
         <activity
             android:name=".HelpScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopularScreenActivity"
             android:exported="false" />
         <activity
             android:name=".PopularScreenActivity"

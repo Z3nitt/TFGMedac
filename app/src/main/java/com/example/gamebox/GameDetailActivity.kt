@@ -289,18 +289,20 @@ fun DetailContent(
                     if (selectedCol != null) {
                         libVm.addGameToCollection(
                             GameEntry(
-                                "steam_$steamAppid", titleText,
-                                headerUrls.firstOrNull().orEmpty(),
-                                selectedCol!!.collectionId
+                                gameId       = "steam_$steamAppid",
+                                title        = titleText,
+                                imageUrl     = headerUrls.firstOrNull().orEmpty(),
+                                collectionId = selectedCol!!.collectionId
                             )
                         )
                     } else {
                         libVm.createCollection(newName, totalTxt.toIntOrNull()) { colId ->
                             libVm.addGameToCollection(
                                 GameEntry(
-                                    "steam_$steamAppid", titleText,
-                                    headerUrls.firstOrNull().orEmpty(),
-                                    colId
+                                    gameId       = "steam_$steamAppid",
+                                    title        = titleText,
+                                    imageUrl     = headerUrls.firstOrNull().orEmpty(),
+                                    collectionId = colId
                                 )
                             )
                         }

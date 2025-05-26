@@ -26,7 +26,6 @@ import com.example.gamebox.model.CollectionEntry
 import com.example.gamebox.model.GameEntry
 import com.example.gamebox.viewmodel.LibraryViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.compose.foundation.background
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,10 +34,21 @@ class JuegotecaActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val vm: LibraryViewModel = viewModel()
-            val games by vm.games.collectAsState()
             val totalG by vm.totalGames.collectAsState()
             val totalC by vm.totalCollections.collectAsState()
-            val pct    by vm.percentComplete.collectAsState()
+            val games by vm.games.collectAsState()
+            val collections by vm.collections.collectAsState()
+            val pct by remember(games, collections) {
+                derivedStateOf {
+                    if (collections.isEmpty()) 0f else {
+                        val done = collections.count { col ->
+                            val have = games.count { it.collectionId == col.collectionId }
+                            col.totalInSaga?.let { have >= it } ?: (have > 0)
+                        }
+                        done.toFloat() / collections.size
+                    }
+                }
+            }
             val context = this
 
             // Flags
@@ -51,7 +61,6 @@ class JuegotecaActivity : ComponentActivity() {
             var selectedCol by remember { mutableStateOf<CollectionEntry?>(null) }
             var newName     by remember { mutableStateOf("") }
             var totalTxt    by remember { mutableStateOf("") }
-            val collections by vm.collections.collectAsState()
 
             Scaffold(
                 containerColor = Color(0xFFDFFFE0),

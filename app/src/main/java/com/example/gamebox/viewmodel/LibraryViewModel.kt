@@ -13,10 +13,10 @@ class LibraryViewModel : ViewModel() {
 
     // Flows de Firebase en StateFlows para Compose
     val games: StateFlow<List<GameEntry>> = repo.observeGames()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     val collections: StateFlow<List<CollectionEntry>> = repo.observeCollections()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     // Contadores
     val totalGames: StateFlow<Int> = games.map { it.size }
@@ -26,20 +26,22 @@ class LibraryViewModel : ViewModel() {
         .stateIn(viewModelScope, SharingStarted.Lazily, 0)
 
     // % completado: (colecciones sin totalInSaga) se ignoran en el porcentaje
-    val percentComplete = combine(games, collections) { games, cols ->
-        // Sólo colecciones que tienen un objetivo definido:
-        val targetCols = cols.filter { it.totalInSaga != null }
-        if (targetCols.isEmpty()) 0f else {
-            val done = targetCols.count { col ->
-                val ti = col.totalInSaga!!
-                games.count { it.collectionId == col.collectionId } >= ti
+    val percentComplete: StateFlow<Float> = combine(games, collections) { games, cols ->
+        if (cols.isEmpty()) 0f else {
+            val done = cols.count { col ->
+                val have = games.count { it.collectionId == col.collectionId }
+                col.totalInSaga?.let { have >= it } ?: (have > 0)
             }
-            done.toFloat() / targetCols.size
+            done.toFloat() / cols.size
         }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, 0f)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,  // <–– aquí
+        initialValue = 0f
+    )
 
+    // --- Funciones para colecciones y juegos ---
 
-    // Funciones para modificar
     fun createCollection(name: String, totalInSaga: Int? = null, onDone: (String) -> Unit) {
         viewModelScope.launch {
             val newId = repo.addCollection(name, totalInSaga)
@@ -71,5 +73,39 @@ class LibraryViewModel : ViewModel() {
         viewModelScope.launch {
             repo.deleteGame(docId)
         }
+    }
+
+    // --- NUEVO: Funciones para logros ---
+
+    /**
+     * Marca o desmarca un logro en un juego concreto.
+     *
+     * @param gameDocId        El ID del documento GameEntry (docId)
+     * @param achievementName  Nombre identificador del logro
+     * @param achieved         True para marcar como conseguido, false para desmarcar
+     */
+    fun setAchievement(
+        gameDocId: String,
+        achievementName: String,
+        achieved: Boolean
+    ) {
+        viewModelScope.launch {
+            repo.setAchievementState(gameDocId, achievementName, achieved)
+        }
+    }
+
+    /**
+     * Observa en tiempo real el estado de todos los logros de un juego.
+     * Devuelve un StateFlow de Map<nombreDelLogro, estadoBooleano>.
+     *
+     * @param gameDocId  El ID del documento GameEntry (docId)
+     */
+    fun observeAchievements(gameDocId: String): StateFlow<Map<String, Boolean>> {
+        return repo.observeAchievementStates(gameDocId)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                initialValue = emptyMap()
+            )
     }
 }
