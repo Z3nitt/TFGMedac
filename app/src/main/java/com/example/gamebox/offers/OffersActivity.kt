@@ -16,7 +16,7 @@ import com.example.gamebox.steam.repository.SteamRepository
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
-class OffersActivity : AppCompatActivity() {
+class OffersActivity : BaseActivity() {
 
     private lateinit var recyclerOffers: RecyclerView
     private lateinit var offersAdapter: OffersAdapter
@@ -29,7 +29,7 @@ class OffersActivity : AppCompatActivity() {
 
         //Toolbar para la flecha de volver y titulo
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Juegos en oferta 🔥"
+        toolbar.title = getString(R.string.juegos_en_oferta_con_emoji)
 
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

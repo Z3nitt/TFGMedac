@@ -18,10 +18,10 @@
             android:id="@+id/gamebox"
             android:layout_width="172dp"
             android:layout_height="41dp"
-            android:text="GAMEBOX"
+            android:text="@string/gamebox"
             android:textAlignment="center"
             android:textColor="#1B3"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:layout_marginTop="36dp"
             android:clickable="true"
             android:focusable="false"
-            android:hint="Buscar juego…"
+            android:hint="@string/buscar_juego"
             android:padding="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -48,7 +48,7 @@
             android:id="@+id/novedades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Novedades"
+            android:text="@string/novedades"
             android:textColor="#1B3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
             android:id="@+id/more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MÁS"
+            android:text="@string/mas"
             android:textColor="#FFD600"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
             android:id="@+id/populargames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Populares"
+            android:text="@string/populares"
             android:textColor="#1B3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
             android:id="@+id/more2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MÁS"
+            android:text="@string/mas"
             android:textColor="#FFD600"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,117 +100,117 @@
             android:id="@+id/pfp"
             android:layout_width="54dp"
             android:layout_height="54dp"
+            android:src="@drawable/avatar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023"
-            android:src="@drawable/avatar" />
+            app:layout_constraintVertical_bias="0.023" />
 
         <ImageView
             android:id="@+id/menulateral"
             android:layout_width="45dp"
             android:layout_height="41dp"
+            android:src="@drawable/menuicon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023"
-            android:src="@drawable/menuicon" />
+            app:layout_constraintVertical_bias="0.023" />
 
         <ImageView
             android:id="@+id/suscripcion"
             android:layout_width="410dp"
             android:layout_height="214dp"
+            android:src="@drawable/suscripcion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            android:src="@drawable/suscripcion" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/videojuego1"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/oblivion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.299"
-            android:src="@drawable/oblivion" />
+            app:layout_constraintVertical_bias="0.299" />
 
         <ImageView
             android:id="@+id/videojuego2"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/balatro"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.299"
-            android:src="@drawable/balatro" />
+            app:layout_constraintVertical_bias="0.299" />
 
         <ImageView
             android:id="@+id/videojuego3"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/schedule1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.299"
-            android:src="@drawable/schedule1" />
+            app:layout_constraintVertical_bias="0.299" />
 
         <ImageView
             android:id="@+id/videojuego4"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/gtavi"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.594"
-            android:src="@drawable/gtavi" />
+            app:layout_constraintVertical_bias="0.594" />
 
         <ImageView
             android:id="@+id/videojuego5"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/sims2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.594"
-            android:src="@drawable/sims2" />
+            app:layout_constraintVertical_bias="0.594" />
 
         <ImageView
             android:id="@+id/videojuego6"
             android:layout_width="76dp"
             android:layout_height="124dp"
+            android:src="@drawable/gtasa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.594"
-            android:src="@drawable/gtasa"/>
+            app:layout_constraintVertical_bias="0.594" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button"
             android:layout_width="112dp"
             android:layout_height="47dp"
-            android:text="HAZTE PRO"
+            android:text="@string/hazte_pro"
             android:textColor="#FFFFFF"
-            android:textSize="11dp"
+            android:textSize="11sp"
             app:backgroundTint="#1B3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -218,6 +218,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.928" />
+
+        <TextView
+            android:id="@+id/becomeProTxt"
+            android:layout_width="136dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/hazte_pro"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Menú lateral -->
@@ -243,14 +256,14 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/avatar"
-                android:contentDescription="Foto de perfil"
+                android:contentDescription="@string/foto_de_perfil"
                 android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:id="@+id/drawer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prueba de nombre y apellido"
+                android:text="@string/prueba_de_nombre_y_apellido"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -259,7 +272,7 @@
                 android:id="@+id/drawer_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UsuarioDePrueba54"
+                android:text="@string/nickname"
                 android:textColor="#A0FFFFFF"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -274,27 +287,27 @@
             <TextView
                 android:id="@+id/menu_juegoteca"
                 style="@style/MenuItemStyle"
-                android:text="JUEGOTECA" />
+                android:text="@string/juegoteca" />
 
             <TextView
                 android:id="@+id/menu_ofertas"
                 style="@style/MenuItemStyle"
-                android:text="OFERTAS" />
+                android:text="@string/ofertas" />
 
             <TextView
                 android:id="@+id/menu_resenas"
                 style="@style/MenuItemStyle"
-                android:text="RESEÑAS" />
+                android:text="@string/resenias" />
 
             <TextView
                 android:id="@+id/menu_novedades"
                 style="@style/MenuItemStyle"
-                android:text="NOVEDADES" />
+                android:text="@string/novedades_mayus" />
 
             <TextView
                 android:id="@+id/menu_logros"
                 style="@style/MenuItemStyle"
-                android:text="LOGROS" />
+                android:text="@string/logros" />
 
             <!-- Divider -->
             <View
@@ -306,12 +319,12 @@
             <TextView
                 android:id="@+id/menu_configuracion"
                 style="@style/MenuItemStyle"
-                android:text="CONFIGURACIÓN" />
+                android:text="@string/configuracion" />
 
             <TextView
                 android:id="@+id/menu_ayuda"
                 style="@style/MenuItemStyle"
-                android:text="AYUDA" />
+                android:text="@string/ayuda" />
         </LinearLayout>
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

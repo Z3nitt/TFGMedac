@@ -29,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-class JuegotecaActivity : ComponentActivity() {
+class JuegotecaActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -64,7 +64,7 @@ class JuegotecaActivity : ComponentActivity() {
 
             Scaffold(
                 containerColor = Color(0xFFDFFFE0),
-                topBar = { TopAppBar(title = { Text("Mi Juegoteca") }) }) { padding ->
+                topBar = { TopAppBar(title = { Text(getString(R.string.mi_juegoteca)) }) }) { padding ->
                 Column(
                     Modifier
                         .padding(padding)
@@ -88,7 +88,7 @@ class JuegotecaActivity : ComponentActivity() {
                                 }
                         ) {
                             Text(text = "$totalG", style = MaterialTheme.typography.headlineMedium)
-                            Text(text = "Juegos", style = MaterialTheme.typography.bodySmall)
+                            Text(text = getString(R.string.juegos), style = MaterialTheme.typography.bodySmall)
                         }
 
                         // --- Colecciones: igual que antes ---
@@ -97,7 +97,7 @@ class JuegotecaActivity : ComponentActivity() {
                             modifier = Modifier.clickable { showMenu = true }
                         ) {
                             Text(text = "$totalC", style = MaterialTheme.typography.headlineMedium)
-                            Text(text = "Colecciones", style = MaterialTheme.typography.bodySmall)
+                            Text(text = getString(R.string.colecciones), style = MaterialTheme.typography.bodySmall)
                         }
                     }
 
@@ -122,7 +122,7 @@ class JuegotecaActivity : ComponentActivity() {
 
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = "Últimos añadidos",
+                        text = getString(R.string.ultimos_aniadidos),
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(start = 16.dp)
                     )

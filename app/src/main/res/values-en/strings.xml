@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name" translatable="false">Gamebox</string>
+    <string name="correo_electronico">email</string>
+    <string name="openDrawer">Open menu</string>
+    <string name="closeDrawer">Close menu</string>
+    <string name="nickname">UserExample</string>
+    <string-array name="platform_filter_options">
+        <item>All</item>
+        <item>Steam</item>
+        <item>Epic Games</item>
+    </string-array>
+
+    <!-- Strings para la pantalla de Suscripcion -->
+    <string name="go_premium">Go Premium!</string>
+    <string name="unlock_all_features">Unlock all features</string>
+    <string name="benefits">Benefits</string>
+    <string name="benefit_1">Access to all premium features</string>
+    <string name="benefit_2">No ads</string>
+    <string name="benefit_3">Exclusive content</string>
+    <string name="benefit_4">Priority support</string>
+    <string name="choose_plan">Choose your plan</string>
+    <string name="monthly">Monthly</string>
+    <string name="monthly_price">€3/month</string>
+    <string name="yearly">Yearly (50% off)</string>
+    <string name="yearly_price">€20/year</string>
+    <string name="lifetime">Lifetime</string>
+    <string name="lifetime_price">€50 (one-time payment)</string>
+    <string name="subscribe_now">Subscribe now!</string>
+    <string name="subscription_terms">The subscription will automatically renew. You can cancel at any time</string>
+    <string name="premium_icon">Premium icon</string>
+
+    <!-- MAIN SCREEN -->
+    <string name="gamebox">GAMEBOX</string>
+    <string name="buscar_juego">Search game...</string>
+    <string name="novedades">News</string>
+    <string name="mas">More</string>
+    <string name="populares">Popular</string>
+    <string name="hazte_pro">BECOME PRO</string>
+    <string name="foto_de_perfil">Profile photo</string>
+    <string name="prueba_de_nombre_y_apellido">Name and lastname test</string>
+    <string name="juegoteca">GAME VAULT</string>
+    <string name="ofertas">OFFERS</string>
+    <string name="resenias">REVIEWS</string>
+    <string name="logros">ACHIEVEMENTS</string>
+    <string name="configuracion">SETTINGS</string>
+    <string name="ayuda">HELP</string>
+    <string name="novedades_mayus">NEWS</string>
+
+    <!-- PROFILE SCREEN -->
+    <string name="editar_perfil">Edit profile</string>
+    <string name="juegos">Games</string>
+    <string name="completados">Completed</string>
+    <string name="cerrar_sesion">Sign out</string>
+    <string name="nombre_de_usuario_mayus">USERNAME</string>
+    <string name="volver">Go back</string>
+    <string name="nombre_de_usuario">Username</string>
+    <string name="guardar">Save</string>
+    <string name="juegos_en_oferta">Games on sale</string>
+    <string name="volver_atras">Go back</string>
+    <string name="notificaciones">Notifications</string>
+    <string name="tus_novedades">Your news</string>
+    <string name="nuevo_seguidor">New follower</string>
+    <string name="nuevo_comentario">New comment</string>
+    <string name="configurar_notificaciones">Configure notifications</string>
+    <string name="cuenta">Account</string>
+    <string name="mi_cuenta">My account</string>
+    <string name="usuarios_bloqueados">Blocked users</string>
+    <string name="restaurar_suscripcion">Restore suscription</string>
+    <string name="centro_de_ayuda">Help center</string>
+    <string name="reporta_un_problema">Report an issue</string>
+    <string name="condiciones_de_uso">Terms of use</string>
+
+    <!-- HELP -->
+    <string name="help_question_1">What are the benefits of the premium version?</string>
+    <string name="help_answer_1">It gives you access to exclusive content, advanced features, and an unrestricted experience.</string>
+    <string name="help_question_2">How much does the premium version cost?</string>
+    <string name="help_answer_2">The monthly plan costs €3/month and the annual plan €20/year.</string>
+    <string name="help_question_3">What is the Game Library section?</string>
+    <string name="help_answer_3">It shows data like the number of games and collections the user has, among other features.</string>
+    <string name="help_question_4">Do I have to pay to use the app?</string>
+    <string name="help_answer_4">No, the app is free. Optionally, you can upgrade to premium to enhance the free plan.</string>
+    <string name="idioma">Language</string>
+    <string name="appbar_ayuda">Help</string>
+    <string name="iniciar_sesion">Login</string>
+    <string name="registrar_usuario">Sign up</string>
+    <string name="contrasenia">Password</string>
+    <string name="alert_password_error_text">The password must have at least 6 characters.</string>
+    <string name="alert_usernmae_error">You must enter a username</string>
+    <string name="alert_usernmae_error_text">Enter a username</string>
+    <string name="alert_successful_signup">Registered user</string>
+    <string name="alert_error_signup">Error registering user</string>
+    <string name="alert_error_signup_text">An error occurred while registering the user.</string>
+    <string name="alert_successful_login">Successful login</string>
+    <string name="alert_error_login_text">User not found</string>
+    <string name="aceptar">Accept</string>
+
+    <!-- INTRO -->
+    <string name="crear_cuenta">Create account</string>
+    <string name="intro_slide_text_1">Find your games in seconds</string>
+    <string name="intro_slide_text_2">Save the games you want and the ones you have</string>
+    <string name="intro_slide_text_3">We\'ll let you know about new games and deals!</string>
+    <string name="alert_campos_vacios">Empty fields</string>
+    <string name="alert_campos_vacios_text">Make sure the fields are not empty!</string>
+    <string name="alert_mail_error">The email entered is not valid</string>
+    <string name="alert_mail_error_text">Make sure you format your email correctly.</string>
+    <string name="alert_password_error">Very short password</string>
+    <string name="alert_error_login">Login failed</string>
+
+    <!-- OFERTAS -->
+    <string name="juegos_en_oferta_con_emoji">Games on sale 🔥</string>
+
+    <!-- BUSCADOR DE JUEGOS -->
+    <string name="appbar_buscar_juego">Search game</string>
+    <string name="buscador_textfield_nombre_juego">Game name</string>
+
+    <!-- JUEGOTECA -->
+    <string name="mi_juegoteca">My Game vault</string>
+    <string name="colecciones">Collections</string>
+    <string name="ultimos_aniadidos">Last added</string>
+
+</resources>

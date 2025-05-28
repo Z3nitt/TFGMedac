@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_background"
-        android:title="Juegos en oferta"
+        android:title="@string/juegos_en_oferta"
         android:titleTextColor="@color/black"
         app:navigationIcon="@drawable/ic_arrow_back" />
 

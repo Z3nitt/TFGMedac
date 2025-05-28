@@ -14,7 +14,7 @@ import com.example.gamebox.steam.repository.SteamRepository
 import com.google.android.material.appbar.MaterialToolbar
 import kotlinx.coroutines.launch
 
-class NewGamesScreenActivity : AppCompatActivity() {
+class NewGamesScreenActivity : BaseActivity() {
 
     private lateinit var recyclerNewGames: RecyclerView
     private lateinit var newGamesAdapter: NewGamesAdapter
@@ -24,7 +24,7 @@ class NewGamesScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_games_screen)
 
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Novedades"
+        toolbar.title = getString(R.string.novedades)
 
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

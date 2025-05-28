@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_background"
-        android:title="Editar perfil"
+        android:title="@string/editar_perfil"
         android:titleTextColor="@android:color/white"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
@@ -36,7 +36,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="0dp"
-            android:src="@android:drawable/btn_star_big_on"
+            android:src="@drawable/avatar"
             app:civ_border_color="@android:color/white"
             app:civ_border_width="2dp"
             app:civ_circle_background_color="@color/white" />
@@ -50,7 +50,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
-        android:hint="Nombre de usuario">
+        android:hint="@string/nombre_de_usuario">
 
         <EditText
             android:id="@+id/editTextUsername"
@@ -70,7 +70,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Email">
+        android:hint="@string/email">
 
         <EditText
             android:id="@+id/editTextEmail"

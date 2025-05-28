@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_background"
-        android:title="Juegos en oferta"
+        android:title="@string/ayuda"
         android:titleTextColor="@color/black"
         app:navigationIcon="@drawable/ic_arrow_back" />
 
@@ -28,7 +28,7 @@
         android:layout_marginTop="200dp"
         style="?android:attr/progressBarStyleLarge" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,7 +41,7 @@
                 android:id="@+id/p1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Qué ventajas tiene la versión premium?"
+                android:text="@string/help_question_1"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="12dp"
@@ -52,14 +52,14 @@
                 android:id="@+id/r1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Te da acceso a contenido exclusivo, funciones avanzadas y una experiencia sin restricciones."
+                android:text="@string/help_answer_1"
                 android:padding="12dp"
                 android:visibility="gone" />
             <TextView
                 android:id="@+id/p2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Cuanto cuesta la versión premium?"
+                android:text="@string/help_question_2"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="12dp"
@@ -70,14 +70,14 @@
                 android:id="@+id/r2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="La mensual cuesta 3€/mes y la anual 20€/mes."
+                android:text="@string/help_answer_2"
                 android:padding="12dp"
                 android:visibility="gone" />
             <TextView
                 android:id="@+id/p3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Qué es la sección juegoteca?"
+                android:text="@string/help_question_3"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="12dp"
@@ -88,14 +88,14 @@
                 android:id="@+id/r3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="En ella aparecen datos como el número de juegos  y de colecciones del usuario entre otras funciones."
+                android:text="@string/help_answer_3"
                 android:padding="12dp"
                 android:visibility="gone" />
             <TextView
                 android:id="@+id/p4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Hay que pagar para usar la aplicación?"
+                android:text="@string/help_question_4"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:padding="12dp"
@@ -106,7 +106,7 @@
                 android:id="@+id/r4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No, la aplicación es gratuita, opcionamente tienes la versión premium que mejora el plan gratuito"
+                android:text="@string/help_answer_4"
                 android:padding="12dp"
                 android:visibility="gone" />
         </LinearLayout>

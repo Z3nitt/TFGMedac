@@ -15,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.firebase.auth.FirebaseAuth
 
-class MainScreenActivity : AppCompatActivity() {
+class MainScreenActivity : BaseActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
 

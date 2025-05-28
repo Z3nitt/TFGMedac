@@ -12,7 +12,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
@@ -31,9 +31,9 @@ class IntroActivity : AppCompatActivity() {
 
 
         val realSlides = listOf(
-            IntroSlide("Encuentra tus juegos en segundos", R.raw.anim1),
-            IntroSlide("Guarda los juegos que quieres y los que tienes", R.raw.anim2),
-            IntroSlide("¡Te avisaremos de los nuevos juegos y ofertas!", R.raw.anim3)
+            IntroSlide(getString(R.string.intro_slide_text_1), R.raw.anim1),
+            IntroSlide(getString(R.string.intro_slide_text_2), R.raw.anim2),
+            IntroSlide(getString(R.string.intro_slide_text_3), R.raw.anim3)
         )
 
         val slides = listOf(realSlides.last()) + realSlides + listOf(realSlides.first())

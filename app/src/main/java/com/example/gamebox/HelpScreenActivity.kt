@@ -5,9 +5,11 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.text.toLowerCase
 import com.google.android.material.appbar.MaterialToolbar
+import java.util.Locale
 
-class HelpScreenActivity : AppCompatActivity() {
+class HelpScreenActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +20,7 @@ class HelpScreenActivity : AppCompatActivity() {
         setupToggle(R.id.p4, R.id.r4)
 
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Ayuda"
+        toolbar.title = getString(R.string.appbar_ayuda)
 
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

@@ -7,7 +7,7 @@ import android.widget.RadioButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
-class SuscriptionScreenActivity : AppCompatActivity() {
+class SuscriptionScreenActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

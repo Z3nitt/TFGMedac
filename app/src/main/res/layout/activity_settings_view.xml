@@ -30,7 +30,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="16dp"
-                    android:contentDescription="Volver atrás"
+                    android:contentDescription="@string/volver_atras"
                     android:src="@drawable/back_arrow" />
 
                 <!-- Título de la pantalla -->
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Configuración"
+                    android:text="@string/configuracion"
                     android:textColor="#1B3"
                     android:textSize="26sp"
                     android:textStyle="bold" />
@@ -63,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Notificaciones"
+                        android:text="@string/notificaciones"
                         android:textColor="#1976D2"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -72,26 +72,26 @@
                         android:id="@+id/switch_news"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tus novedades" />
+                        android:text="@string/tus_novedades" />
 
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switch_follower"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nuevo seguidor" />
+                        android:text="@string/nuevo_seguidor" />
 
                     <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switch_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nuevo comentario" />
+                        android:text="@string/nuevo_comentario" />
 
                     <TextView
                         android:id="@+id/configureNotificat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Configurar notificaciones"
+                        android:text="@string/configurar_notificaciones"
                         android:textColor="#666666"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -115,22 +115,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Cuenta"
+                        android:text="@string/cuenta"
                         android:textColor="#1976D2"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Mi cuenta" />
+                        android:text="@string/mi_cuenta" />
 
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Usuarios bloqueados" />
+                        android:text="@string/usuarios_bloqueados" />
 
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Restaurar suscripción" />
+                        android:text="@string/restaurar_suscripcion" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -152,18 +152,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Ayuda"
+                        android:text="@string/ayuda"
                         android:textColor="#1976D2"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Centro de ayuda" />
+                        android:text="@string/centro_de_ayuda" />
 
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Reporta un problema" />
+                        android:text="@string/reporta_un_problema" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -184,14 +184,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="General"
+                        android:text="@string/general"
                         android:textColor="#1976D2"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/idioma"
+                            android:layout_marginBottom="4dp"
+                            android:textSize="14sp" />
+
+                        <Spinner
+                            android:id="@+id/spinner_language"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/language_labels"/>
+                    </LinearLayout>
+
+
+
                     <TextView
                         style="@style/SettingsItem"
-                        android:text="Condiciones de uso" />
+                        android:text="@string/condiciones_de_uso" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

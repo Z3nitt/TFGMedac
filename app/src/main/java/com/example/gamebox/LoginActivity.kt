@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.userProfileChangeRequest
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var emailEditText: EditText
     private lateinit var usernameEditText: EditText
@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Cambia el texto según el modo
         if (!isLogin) {
-            titleText.text = "Registrar usuario"
-            actionButton.text = "Registrar usuario"
+            titleText.text = getString(R.string.registrar_usuario)
+            actionButton.text = getString(R.string.registrar_usuario)
             usernameEditText.visibility = View.VISIBLE
         }
 
@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setup() {
         actionButton.setOnClickListener {
             if (emailEditText.text.trim().isEmpty() || passwordEditText.text.trim().isEmpty()) {
-                showAlertDialog("Campos vacíos", "Asegúrate de que los campos no estén vacíos!")
+                showAlertDialog(getString(R.string.alert_campos_vacios), getString(R.string.alert_campos_vacios_text))
             } else {
                 if (isLogin) logUser() else registerUser()
             }
@@ -69,12 +69,12 @@ class LoginActivity : AppCompatActivity() {
         val isMailValid = Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches()
 
         if (!isMailValid) {
-            showAlertDialog("El mail introducido no es válido", "Asegúrate de poner un formato correcto en el mail")
+            showAlertDialog(getString(R.string.alert_mail_error), getString(R.string.alert_mail_error_text))
         } else if (passwordEditText.text.trim().length < 6) {
-            showAlertDialog("Contraseña muy corta", "La contraseña tiene que tener mínimo 6 caracteres")
+            showAlertDialog(getString(R.string.alert_password_error), getString(R.string.alert_password_error_text))
         }
         else if(usernameEditText.text.trim().isEmpty()){
-            showAlertDialog("Debes poner un nombre de usuario", "Indica un nombre de usuario")
+            showAlertDialog(getString(R.string.alert_usernmae_error), getString(R.string.alert_usernmae_error_text))
         }
         else {
             FirebaseAuth.getInstance()
@@ -85,10 +85,10 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         addUserName()
-                        Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.alert_successful_signup), Toast.LENGTH_SHORT).show()
                         showHome()
                     } else {
-                        showAlertDialog("Error al registrar el usuario", "Ha ocurrido un error al registrar el usuario")
+                        showAlertDialog(getString(R.string.alert_error_signup), getString(R.string.alert_error_signup_text))
                     }
                 }
         }
@@ -120,10 +120,10 @@ class LoginActivity : AppCompatActivity() {
             )
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.alert_successful_login), Toast.LENGTH_SHORT).show()
                     showHome()
                 } else {
-                    showAlertDialog("Error al iniciar sesión", "No se ha encontrado el usuario")
+                    showAlertDialog(getString(R.string.alert_error_login), getString(R.string.alert_error_login_text))
                 }
             }
     }
@@ -132,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
+        builder.setPositiveButton(getString(R.string.aceptar), null)
         builder.create().show()
     }
 

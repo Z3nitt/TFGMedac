@@ -16,12 +16,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.gamebox.steam.viewmodel.SearchViewModel
 
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            title = { Text("Buscar Juego") },
+                            title = { Text(getString(R.string.appbar_buscar_juego)) },
                             navigationIcon = {
                                 IconButton(onClick = { activity.finish() }) {
                                     Icon(
@@ -108,7 +109,7 @@ fun SearchScreen(
                 viewModel.onQueryChange(it)
                 expanded = true
             },
-            label = { Text("Nombre de juego") },
+            label = { Text(stringResource(R.string.buscador_textfield_nombre_juego)) },
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
                 IconButton(onClick = { expanded = !expanded }) {

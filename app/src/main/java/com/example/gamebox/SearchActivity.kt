@@ -35,7 +35,7 @@ class SearchActivity : ComponentActivity() {
                     containerColor = Color(0xFFDFFFE0),
                     topBar = {
                         TopAppBar(
-                            title = { Text("Buscar Juego") },
+                            title = { Text("Buscar Juego") }, //TODO cambiar a ingles toda la pantalla
                             navigationIcon = {
                                 IconButton(onClick = { activity.finish() }) {
                                     Icon(

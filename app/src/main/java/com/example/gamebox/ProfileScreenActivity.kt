@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 
-class ProfileScreenActivity : AppCompatActivity() {
+class ProfileScreenActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,7 +39,7 @@ class ProfileScreenActivity : AppCompatActivity() {
 
         //Listener para volver atras
         backBtn.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed() //Vuelve a la activity anterior
+            onBackPressedDispatcher.onBackPressed()
         }
 
         //Listener para el boton de editar el perfil

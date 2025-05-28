@@ -12,7 +12,7 @@ import com.example.gamebox.recyclerview.AdaptadorDeReviews
 import com.example.gamebox.recyclerview.ListaEntrada
 import com.example.gamebox.recyclerview.Reviews
 
-class ReviewsScreenActivity : AppCompatActivity() {
+class ReviewsScreenActivity : BaseActivity() {
 
     private lateinit var reviews: ArrayList<ListaEntrada>
 

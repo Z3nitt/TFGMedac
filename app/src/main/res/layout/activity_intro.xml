@@ -34,7 +34,7 @@
         android:id="@+id/createAccountButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crear cuenta"
+        android:text="@string/crear_cuenta"
         android:layout_marginTop="16dp"
         android:backgroundTint="#00C853"
         android:textColor="#FFFFFF" />
@@ -43,7 +43,7 @@
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Iniciar sesión"
+        android:text="@string/iniciar_sesion"
         android:layout_marginTop="8dp"
         android:backgroundTint="#1B3B1A"
         android:textColor="#FFFFFF" />

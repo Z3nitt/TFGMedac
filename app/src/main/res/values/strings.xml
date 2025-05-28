@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Gamebox</string>
+    <string name="app_name" translatable="false">Gamebox</string>
     <string name="correo_electronico">Correo electrónico</string>
-    <string name="openDrawer">Abrir Menú</string>
-    <string name="closeDrawer">Cerrar Menú</string>
-    <string name="nickname">Usuario123</string>
+    <string name="openDrawer">Abrir menu</string>
+    <string name="closeDrawer">Cerrar menu</string>
+    <string name="nickname" translatable="false">UserExample</string>
     <string-array name="platform_filter_options">
         <item>Todos</item>
         <item>Steam</item>
@@ -11,7 +11,7 @@
     </string-array>
 
     <!-- Strings para la pantalla de Suscripcion -->
-    <string name="go_premium">¡Hazte Premium!</string>
+    <string name="go_premium">¡Hazte premium!</string>
     <string name="unlock_all_features">Desbloquea todas las funciones</string>
     <string name="benefits">Beneficios</string>
     <string name="benefit_1">Acceso a todas las funciones premium</string>
@@ -28,4 +28,109 @@
     <string name="subscribe_now">¡Suscríbete ahora!</string>
     <string name="subscription_terms">La suscripción se renovará automáticamente. Puedes cancelar en cualquier momento.</string>
     <string name="premium_icon">Icono Premium</string>
+
+    <!-- PROFILE SCREEN -->
+    <string name="gamebox">GAMEBOX</string>
+    <string name="buscar_juego">Buscar juego…</string>
+    <string name="novedades">Novedades</string>
+    <string name="mas">MÁS</string>
+    <string name="populares">Populares</string>
+    <string name="hazte_pro">HAZTE PRO</string>
+    <string name="foto_de_perfil">Foto de perfil</string>
+    <string name="prueba_de_nombre_y_apellido">Prueba de nombre y apellido</string>
+    <string name="juegoteca">JUEGOTECA</string>
+    <string name="ofertas">OFERTAS</string>
+    <string name="resenias">RESEÑAS</string>
+    <string name="logros">LOGROS</string>
+    <string name="configuracion">CONFIGURACIÓN</string>
+    <string name="ayuda">AYUDA</string>
+    <string name="novedades_mayus">NOVEDADES</string>
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="juegos">Juegos</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="completados">Completados</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="user_mail" translatable="false">user mail</string>
+    <string name="nombre_de_usuario_mayus">NOMBRE DE USUARIO</string>
+    <string name="volver">Volver</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="guardar">Guardar</string>
+
+
+    <!-- CONFIGURACION -->
+    <string name="juegos_en_oferta">Juegos en oferta</string>
+    <string name="volver_atras">Volver atrás</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="tus_novedades">Tus novedades</string>
+    <string name="nuevo_seguidor">Nuevo seguidor</string>
+    <string name="nuevo_comentario">Nuevo comentario</string>
+    <string name="configurar_notificaciones">Configurar notificaciones</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="mi_cuenta">Mi cuenta</string>
+    <string name="usuarios_bloqueados">Usuarios bloqueados</string>
+    <string name="restaurar_suscripcion">Restaurar suscripción</string>
+    <string name="centro_de_ayuda">Centro de ayuda</string>
+    <string name="reporta_un_problema">Reporta un problema</string>
+    <string name="general" translatable="false">General</string>
+    <string name="condiciones_de_uso">Condiciones de uso</string>
+    <array name="language_labels">
+        <item>Español</item>
+        <item>English</item>
+    </array>
+    <string-array name="language_values">
+        <item>es</item>
+        <item>en</item>
+    </string-array>
+
+    <!-- AYUDA -->
+    <string name="help_question_1">¿Qué ventajas tiene la versión premium?</string>
+    <string name="help_answer_1">Te da acceso a contenido exclusivo, funciones avanzadas y una experiencia sin restricciones.</string>
+    <string name="help_question_2">¿Cuanto cuesta la versión premium?</string>
+    <string name="help_answer_2">La mensual cuesta 3€/mes y la anual 20€/mes.</string>
+    <string name="help_question_3">¿Qué es la sección juegoteca?</string>
+    <string name="help_answer_3">En ella aparecen datos como el número de juegos y de colecciones del usuario entre otras funciones.</string>
+    <string name="help_question_4">¿Hay que pagar para usar la aplicación?</string>
+    <string name="help_answer_4">No, la aplicación es gratuita, opcionamente tienes la versión premium que mejora el plan gratuito</string>
+    <string name="idioma">Idioma</string>
+    <string name="appbar_ayuda">Ayuda</string>
+
+    <!-- LOGIN -->
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrar_usuario">Registrar usuario</string>
+    <string name="contrasenia">Contraseña...</string>
+    <string name="alert_campos_vacios">Campos vacios</string>
+    <string name="alert_campos_vacios_text">Asegúrate de que los campos no estén vacíos!</string>
+    <string name="alert_mail_error">El mail introducido no es válido</string>
+    <string name="alert_mail_error_text">Asegúrate de poner un formato correcto en el mail</string>
+    <string name="alert_password_error">Contraseña muy corta</string>
+    <string name="alert_password_error_text">La contraseña tiene que tener mínimo 6 caracteres</string>
+    <string name="alert_usernmae_error">Debes poner un nombre de usuario</string>
+    <string name="alert_usernmae_error_text">Indica un nombre de usuario</string>
+    <string name="alert_successful_signup">Usuario registrado</string>
+    <string name="alert_error_signup">Error al registrar el usuario</string>
+    <string name="alert_error_signup_text">Ha ocurrido un error al registrar el usuario</string>
+    <string name="alert_successful_login">Inicio de sesión exitoso</string>
+    <string name="alert_error_login">Error al iniciar sesión</string>
+    <string name="alert_error_login_text">No se ha encontrado el usuario</string>
+    <string name="aceptar">Aceptar</string>
+
+    <!-- INTRO -->
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="intro_slide_text_1">Encuentra tus juegos en segundos</string>
+    <string name="intro_slide_text_2">Guarda los juegos que quieres y los que tienes</string>
+    <string name="intro_slide_text_3">¡Te avisaremos de los nuevos juegos y ofertas!</string>
+
+    <!-- OFERTAS -->
+    <string name="juegos_en_oferta_con_emoji">Juegos en oferta 🔥</string>
+
+    <!-- BUSCADOR DE JUEGOS -->
+    <string name="appbar_buscar_juego">Buscar Juego</string>
+    <string name="buscador_textfield_nombre_juego">Nombre de juego</string>
+
+    <!-- JUEGOTECA -->
+    <string name="mi_juegoteca">Mi juegoteca</string>
+    <string name="colecciones">Colecciones</string>
+    <string name="ultimos_aniadidos">Ultimos añadidos</string>
+
 </resources>
