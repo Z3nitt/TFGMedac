@@ -225,7 +225,7 @@
             android:layout_height="41dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/hazte_pro"
+            android:text="@string/hazte_con_la_version_premium"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -304,10 +304,26 @@
                 style="@style/MenuItemStyle"
                 android:text="@string/novedades_mayus" />
 
-            <TextView
-                android:id="@+id/menu_logros"
-                style="@style/MenuItemStyle"
-                android:text="@string/logros" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/menu_logros"
+                    style="@style/MenuItemStyle"
+                    android:text="@string/logros"
+                    android:enabled="false"
+                    android:textColor="#045B26"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/wip"/>
+
+            </LinearLayout>
+
+
 
             <!-- Divider -->
             <View
