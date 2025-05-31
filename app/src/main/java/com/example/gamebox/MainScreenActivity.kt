@@ -75,7 +75,7 @@ class MainScreenActivity : BaseActivity() {
         }
 
         more2Text.setOnClickListener {
-            startActivity(Intent(this, PopularScreenActivity::class.java))
+            startActivity(Intent(this, OffersActivity::class.java))
         }
 
         // Ajustar márgenes para edge-to-edge

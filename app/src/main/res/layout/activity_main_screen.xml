@@ -71,10 +71,10 @@
             app:layout_constraintVertical_bias="0.213" />
 
         <TextView
-            android:id="@+id/populargames"
+            android:id="@+id/offergames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/populares"
+            android:text="@string/juegos_en_oferta"
             android:textColor="#1B3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
             android:id="@+id/videojuego4"
             android:layout_width="76dp"
             android:layout_height="124dp"
-            android:src="@drawable/gtavi"
+            android:src="@drawable/aw2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
