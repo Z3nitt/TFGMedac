@@ -134,4 +134,8 @@
     <string name="colecciones">Colecciones</string>
     <string name="ultimos_aniadidos">Ultimos añadidos</string>
 
+    <!-- REVIEWS -->
+    <string name="time_3_days">Hace 3 días</string>
+    <string name="time_2_weeks">Hace un par de semanas</string>
+    <string name="time_1_hour">Hace 1 hora</string>
 </resources>

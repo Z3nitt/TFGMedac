@@ -119,4 +119,9 @@
     <string name="colecciones">Collections</string>
     <string name="ultimos_aniadidos">Last added</string>
 
+    <!-- REVIEWS -->
+    <string name="time_3_days">3 days ago</string>
+    <string name="time_2_weeks">2 weeks ago</string>
+    <string name="time_1_hour">1 hour ago</string>
+
 </resources>

@@ -23,7 +23,7 @@ class ReviewsScreenActivity : BaseActivity() {
         val recyclerViewReviews = findViewById<RecyclerView>(R.id.recyclerviewreviews)
         val goBack: ImageView = findViewById(R.id.goBack)
 
-        reviews = Reviews().getReviews()
+        reviews = Reviews(ctx = this).getReviews()
 
         recyclerViewReviews.layoutManager = LinearLayoutManager(this)
         recyclerViewReviews.adapter = AdaptadorDeReviews(reviews)
