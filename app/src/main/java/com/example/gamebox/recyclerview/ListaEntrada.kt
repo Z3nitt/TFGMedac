@@ -6,5 +6,6 @@ class ListaEntrada(
     val tituloVideojuego: String,
     val tiempo: String,
     val textoReview: String,
+    val autor: String
 
 )

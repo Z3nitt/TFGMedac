@@ -1,5 +1,6 @@
 package com.example.gamebox.recyclerview
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamebox.DetailedReview
+import com.example.gamebox.MainScreenActivity
 import com.example.gamebox.R
 
 class AdaptadorDeReviews(
@@ -29,8 +32,15 @@ class AdaptadorDeReviews(
         holder.itemView.setOnClickListener {
             val pos = holder.adapterPosition
             if (pos != RecyclerView.NO_POSITION) {
-                val nombre = userModelList[pos].tituloVideojuego
-                Toast.makeText(it.context, "Nombre del videojuego: $nombre", Toast.LENGTH_SHORT).show()
+                val context = holder.itemView.context
+                val intent = Intent(context,DetailedReview::class.java).apply {
+                    putExtra("game_name", entrada.tituloVideojuego)
+                    putExtra("game_image", entrada.idImagen)
+                    putExtra("time", entrada.tiempo)
+                    putExtra("review", entrada.textoReview)
+                    putExtra("autor", entrada.autor)
+                }
+                context.startActivity(intent)
             }
         }
 
