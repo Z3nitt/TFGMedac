@@ -3,6 +3,7 @@ package com.example.gamebox
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -10,9 +11,12 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.gamebox.epic.model.EpicAppInfo
@@ -32,24 +36,44 @@ class GameDetailActivity : ComponentActivity() {
         val steamName  = intent.getStringExtra("steam_name")
         val epicTitle  = intent.getStringExtra("epic_title")
         val epicImage  = intent.getStringExtra("epic_image")
-        // eliminado epicPrice
 
         setContent {
-            MaterialTheme {
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = { Text("Detalle Juego") },
-                            navigationIcon = {
-                                IconButton(onClick = { finish() }) {
-                                    Icon(Icons.Default.ArrowBack, contentDescription = "Atrás")
-                                }
-                            }
-                        )
-                    }
-                ) { innerPadding ->
-                    Box(Modifier.padding(innerPadding)) {
-                        DetailContent(type, steamAppid, steamName, epicTitle, epicImage)
+            Box(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = painterResource(id = R.drawable.fondo),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                MaterialTheme {
+                    Scaffold(
+                        containerColor = Color.Transparent,
+                        topBar = {
+                            TopAppBar(
+                                title = { Text("Detalle Juego", color = Color.Black) },
+                                navigationIcon = {
+                                    IconButton(onClick = { finish() }) {
+                                        Icon(
+                                            imageVector = Icons.Default.ArrowBack,
+                                            contentDescription = "Atrás",
+                                            tint = Color.Black
+                                        )
+                                    }
+                                },
+                                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent)
+                            )
+                        }
+                    ) { innerPadding ->
+                        Box(Modifier.padding(innerPadding)) {
+                            DetailContent(
+                                type = type,
+                                steamAppid = steamAppid,
+                                steamName = steamName,
+                                epicTitle = epicTitle,
+                                epicImage = epicImage
+                            )
+                        }
                     }
                 }
             }
@@ -66,11 +90,10 @@ fun DetailContent(
     epicTitle: String?,
     epicImage: String?
 ) {
-    // repositorio para re-fetch de Epic
+    // Repositorio para re-fetch de Epic
     val epicRepo = remember { EpicRepository() }
     var detailEpicPrice by remember { mutableStateOf<String?>(null) }
     var detailEpicDescription by remember { mutableStateOf<String?>(null) }
-
 
     LaunchedEffect(epicTitle) {
         epicTitle?.takeIf { it.isNotBlank() }?.let { title ->
@@ -79,14 +102,12 @@ fun DetailContent(
             } catch (_: Exception) {
                 null
             }
-
             detailEpicPrice = result?.price ?: "—"
             detailEpicDescription = result?.description
         }
     }
 
-
-    // 1) ViewModel de búsqueda para Steam y cabeceras
+    // ViewModel de búsqueda para Steam y cabeceras
     val searchVm: SearchViewModel = viewModel()
     LaunchedEffect(type, steamAppid, epicTitle) {
         when (type) {
@@ -98,14 +119,13 @@ fun DetailContent(
                 )
             }
             SearchViewModel.ResultItem.Epic::class.simpleName -> {
-                // mantenemos solo para headerUrls
                 searchVm.selectItem(
                     SearchViewModel.ResultItem.Epic(
                         EpicAppInfo(
-                            id       = epicTitle.orEmpty(),
-                            title    = epicTitle.orEmpty(),
+                            id = epicTitle.orEmpty(),
+                            title = epicTitle.orEmpty(),
                             imageUrl = epicImage.orEmpty(),
-                            price    = null,
+                            price = null,
                             description = null
                         )
                     )
@@ -115,11 +135,11 @@ fun DetailContent(
                 searchVm.selectItem(
                     SearchViewModel.ResultItem.Both(
                         steam = AppInfo(appid = steamAppid, name = steamName.orEmpty()),
-                        epic  = EpicAppInfo(
-                            id       = epicTitle.orEmpty(),
-                            title    = epicTitle.orEmpty(),
+                        epic = EpicAppInfo(
+                            id = epicTitle.orEmpty(),
+                            title = epicTitle.orEmpty(),
                             imageUrl = epicImage.orEmpty(),
-                            price    = null,
+                            price = null,
                             description = null
                         )
                     )
@@ -129,24 +149,24 @@ fun DetailContent(
         }
     }
 
-    // precios y cabeceras
+    // Precios y cabeceras
     val steamPrice by remember { derivedStateOf { searchVm.steamPrice } }
     val headerUrls by remember { derivedStateOf { searchVm.headerUrls } }
 
-    //Descripcion
+    // Descripción
     val steamDescription by remember { derivedStateOf { searchVm.steamShortDescription } }
 
-    // 2) ViewModel de librería
+    // ViewModel de librería
     val libVm: LibraryViewModel = viewModel()
     val collections by libVm.collections.collectAsState(initial = emptyList())
 
-    // 3) Estados de diálogo
+    // Estados de diálogo
     var showAddDialog by remember { mutableStateOf(false) }
     var selectedCol by remember { mutableStateOf<CollectionEntry?>(null) }
     var newName by remember { mutableStateOf("") }
     var totalTxt by remember { mutableStateOf("") }
 
-    // 4) Datos del juego
+    // Datos del juego
     val titleText = when (type) {
         SearchViewModel.ResultItem.Steam::class.simpleName -> steamName
         SearchViewModel.ResultItem.Epic::class.simpleName  -> epicTitle
@@ -156,40 +176,43 @@ fun DetailContent(
 
     Column(Modifier.padding(16.dp)) {
         // Título
-        Text(text = titleText, style = MaterialTheme.typography.titleLarge)
+        Text(text = titleText, style = MaterialTheme.typography.titleLarge, color = Color.Black)
         Spacer(Modifier.height(8.dp))
 
-        // —— AQUI SE MUESTRAN LOS PRECIOS ——
+        // Precios
         when (type) {
             SearchViewModel.ResultItem.Steam::class.simpleName -> {
                 Text(
                     text = "Precio Steam: ${steamPrice ?: "—"}",
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.Black
                 )
             }
             SearchViewModel.ResultItem.Epic::class.simpleName -> {
                 Text(
                     text = "Precio Epic: ${detailEpicPrice ?: "—"}",
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.Black
                 )
             }
             SearchViewModel.ResultItem.Both::class.simpleName -> {
                 Text(
                     text = "Precio Steam: ${steamPrice ?: "—"}",
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.Black
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = "Precio Epic: ${detailEpicPrice ?: "—"}",
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = Color.Black
                 )
             }
             else -> { /* nada */ }
         }
         Spacer(Modifier.height(12.dp))
-        // ————————————————————————
 
-        // Resto de la UI (tienda, imágenes, botón, etc.)
+        // Tienda
         Text(
             "Tienda: ${
                 when (type) {
@@ -199,11 +222,12 @@ fun DetailContent(
                     else -> "-"
                 }
             }",
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.Black
         )
         Spacer(Modifier.height(12.dp))
 
-        // Imágenes…
+        // Imágenes
         if (headerUrls.size <= 1) {
             AsyncImage(
                 model = headerUrls.firstOrNull().orEmpty(),
@@ -231,28 +255,32 @@ fun DetailContent(
         val descriptionText = when (type) {
             SearchViewModel.ResultItem.Steam::class.simpleName -> steamDescription
             SearchViewModel.ResultItem.Epic::class.simpleName  -> detailEpicDescription
-           // SearchViewModel.ResultItem.Both::class.simpleName  -> steamDescription ?: detailEpicDescription
             else -> null
         }
-
         descriptionText?.let {
             Spacer(Modifier.height(12.dp))
-            Text(text = it, style = MaterialTheme.typography.bodyMedium)
+            Text(text = it, style = MaterialTheme.typography.bodyMedium, color = Color.Black)
         }
 
-
         Spacer(Modifier.height(24.dp))
-        Button(onClick = { showAddDialog = true }, Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { showAddDialog = true },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.principal),
+                contentColor = Color.Black
+            )
+        ) {
             Text("Añadir a Juegoteca")
         }
     }
 
-    // — Diálogo “Añadir” —
+    // Diálogo "Añadir"
     if (showAddDialog) {
         AlertDialog(
             onDismissRequest = { showAddDialog = false },
-            title            = { Text("¿A qué colección?") },
-            text             = {
+            title = { Text("¿A qué colección?") },
+            text = {
                 Column {
                     TextButton(onClick = {
                         selectedCol = null; newName = ""; totalTxt = ""
@@ -312,7 +340,8 @@ fun DetailContent(
             },
             dismissButton = {
                 TextButton(onClick = { showAddDialog = false }) { Text("Cancelar") }
-            }
+            },
+            containerColor = colorResource(id = R.color.principal)
         )
     }
 }

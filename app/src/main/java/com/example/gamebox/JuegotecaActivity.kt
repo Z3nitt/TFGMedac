@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,7 +30,6 @@ import com.example.gamebox.model.CollectionEntry
 import com.example.gamebox.model.GameEntry
 import com.example.gamebox.viewmodel.LibraryViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 class JuegotecaActivity : BaseActivity() {
@@ -51,174 +54,206 @@ class JuegotecaActivity : BaseActivity() {
             }
             val context = this
 
-            // Flags
+            // Flags para mostrar diálogos
             var showMenu   by remember { mutableStateOf(false) }
             var showEdit   by remember { mutableStateOf(false) }
             var showDelete by remember { mutableStateOf(false) }
 
-            // Dropdown state
+            // Estado del Dropdown (colecciones)
             var expanded    by remember { mutableStateOf(false) }
             var selectedCol by remember { mutableStateOf<CollectionEntry?>(null) }
             var newName     by remember { mutableStateOf("") }
             var totalTxt    by remember { mutableStateOf("") }
 
-            Scaffold(
-                containerColor = Color(0xFFDFFFE0),
-                topBar = { TopAppBar(title = { Text(getString(R.string.mi_juegoteca)) }) }) { padding ->
-                Column(
-                    Modifier
-                        .padding(padding)
-                        .fillMaxSize()
-                ) {
-                    // Contadores
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        // --- Juegos: al hacer click abre GamesListActivity ---
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier
-                                .clickable {
-                                    startActivity(
-                                        Intent(this@JuegotecaActivity, GamesListActivity::class.java)
+            // 1. Box principal que contiene la imagen de fondo
+            Box(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = painterResource(id = R.drawable.fondo),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                // 2. Scaffold transparente para dejar ver el fondo
+                Scaffold(
+                    containerColor = Color.Transparent,
+                    topBar = {
+                        TopAppBar(
+                            title = { Text(getString(R.string.mi_juegoteca)) },
+                            navigationIcon = {
+                                IconButton(onClick = {
+                                    // Volver a MainActivity
+                                    startActivity(Intent(context, MainScreenActivity::class.java))
+                                    finish() // opcional, para cerrar esta Activity
+                                }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_arrow_back),
+                                        contentDescription = "Atrás"
                                     )
                                 }
-                        ) {
-                            Text(text = "$totalG", style = MaterialTheme.typography.headlineMedium)
-                            Text(text = getString(R.string.juegos), style = MaterialTheme.typography.bodySmall)
-                        }
-
-                        // --- Colecciones: igual que antes ---
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.clickable { showMenu = true }
-                        ) {
-                            Text(text = "$totalC", style = MaterialTheme.typography.headlineMedium)
-                            Text(text = getString(R.string.colecciones), style = MaterialTheme.typography.bodySmall)
-                        }
+                            },
+                            colors = TopAppBarDefaults.smallTopAppBarColors(
+                                containerColor = Color(0x80000000) // opcional: fondo semitransparente
+                            )
+                        )
                     }
-
-
-                    // Gráfico
-                    Box(
+                ) { padding ->
+                    Column(
                         Modifier
-                            .fillMaxWidth()
-                            .height(120.dp),
-                        contentAlignment = Alignment.Center
+                            .padding(padding)
+                            .fillMaxSize()
                     ) {
-                        CircularProgressIndicator(
-                            progress = pct,
-                            strokeWidth = 12.dp,
-                            modifier = Modifier.size(100.dp)
-                        )
-                        Text(
-                            text = "${(pct * 100).toInt()}%",
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                    }
-
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        text = getString(R.string.ultimos_aniadidos),
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
-
-                    LazyRow(
-                        Modifier.padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(games.sortedByDescending { it.addedAt }.take(10)) { g ->
-                            AsyncImage(
-                                model = g.imageUrl,
-                                contentDescription = g.title,
+                        // Contadores de juegos/colecciones
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
                                 modifier = Modifier
-                                    .size(100.dp)
-                                    .clip(RoundedCornerShape(8.dp))
                                     .clickable {
-                                        Intent(context, GameDetailActivity::class.java).also { intent ->
-                                            if (g.gameId.startsWith("steam_")) {
-                                                intent.putExtra("item_type", "Steam")
-                                                intent.putExtra("steam_appid", g.gameId.removePrefix("steam_").toIntOrNull() ?: -1)
-                                                intent.putExtra("steam_name", g.title)
-                                            } else {
-                                                intent.putExtra("item_type", "Epic")
-                                                intent.putExtra("epic_title", g.title)
-                                                intent.putExtra("epic_image", g.imageUrl)
-                                            }
-                                            startActivity(intent)
-                                        }
+                                        startActivity(
+                                            Intent(this@JuegotecaActivity, GamesListActivity::class.java)
+                                        )
                                     }
+                            ) {
+                                Text(text = "$totalG", style = MaterialTheme.typography.headlineMedium, color = Color.Black)
+                                Text(text = getString(R.string.juegos), style = MaterialTheme.typography.bodySmall, color = Color.Black)
+                            }
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.clickable { showMenu = true }
+                            ) {
+                                Text(text = "$totalC", style = MaterialTheme.typography.headlineMedium, color = Color.Black)
+                                Text(text = getString(R.string.colecciones), style = MaterialTheme.typography.bodySmall, color = Color.Black)
+                            }
+                        }
+
+                        // Gráfico de progreso
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(120.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                progress = pct,
+                                strokeWidth = 12.dp,
+                                modifier = Modifier.size(100.dp),
+                                color = Color(0xFF82C91E)
+                            )
+                            Text(
+                                text = "${(pct * 100).toInt()}%",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.Black
                             )
                         }
-                    }
-                }
 
-                // Menu principal
-                if (showMenu) {
-                    AlertDialog(
-                        onDismissRequest = { showMenu = false },
-                        title = { Text("¿Qué quieres hacer?") },
-                        text = {
-                            Column {
-                                TextButton(onClick = {
-                                    showMenu = false
-                                    startActivity(Intent(context, VerColeccionesActivity::class.java))
-                                }) { Text("Ver colecciones") }
-                                Divider()
-                                TextButton(onClick = { showMenu = false; showEdit = true }) { Text("Editar colección") }
-                                Divider()
-                                TextButton(onClick = { showMenu = false; showDelete = true }) { Text("Borrar colección") }
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            text = getString(R.string.ultimos_aniadidos),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color.Black,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+
+                        // Fila horizontal de últimos añadidos
+                        LazyRow(
+                            Modifier.padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(games.sortedByDescending { it.addedAt }.take(10)) { g ->
+                                AsyncImage(
+                                    model = g.imageUrl,
+                                    contentDescription = g.title,
+                                    modifier = Modifier
+                                        .size(100.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .clickable {
+                                            Intent(context, GameDetailActivity::class.java).also { intent ->
+                                                if (g.gameId.startsWith("steam_")) {
+                                                    intent.putExtra("item_type", "Steam")
+                                                    intent.putExtra("steam_appid", g.gameId.removePrefix("steam_").toIntOrNull() ?: -1)
+                                                    intent.putExtra("steam_name", g.title)
+                                                } else {
+                                                    intent.putExtra("item_type", "Epic")
+                                                    intent.putExtra("epic_title", g.title)
+                                                    intent.putExtra("epic_image", g.imageUrl)
+                                                }
+                                                startActivity(intent)
+                                            }
+                                        }
+                                )
                             }
-                        },
-                        confirmButton = {},
-                        dismissButton = {
-                            TextButton(onClick = { showMenu = false }) { Text("Cancelar") }
                         }
-                    )
-                }
+                    }
 
-                // Editar
-                if (showEdit) {
-                    GenericCrudDialog(
-                        title = "Editar colección",
-                        collections = collections,
-                        expanded = expanded,
-                        selected = selectedCol,
-                        newName = newName,
-                        totalTxt = totalTxt,
-                        showFields = true,
-                        onExpandedChange = { expanded = !expanded },
-                        onSelect = { selectedCol = it },
-                        onNewValues = { (n, t) -> newName = n; totalTxt = t },
-                        onConfirm = {
-                            selectedCol?.let { vm.updateCollection(it.collectionId, newName, totalTxt.toIntOrNull()) {} }
-                        },
-                        onDismiss = { showEdit = false }
-                    )
-                }
+                    // Menú principal (Ver/Editar/Borrar colección)
+                    if (showMenu) {
+                        AlertDialog(
+                            onDismissRequest = { showMenu = false },
+                            title = { Text("¿Qué quieres hacer?") },
+                            text = {
+                                Column {
+                                    TextButton(onClick = {
+                                        showMenu = false
+                                        startActivity(Intent(context, VerColeccionesActivity::class.java))
+                                    }) { Text("Ver colecciones") }
+                                    Divider()
+                                    TextButton(onClick = { showMenu = false; showEdit = true }) { Text("Editar colección") }
+                                    Divider()
+                                    TextButton(onClick = { showMenu = false; showDelete = true }) { Text("Borrar colección") }
+                                }
+                            },
+                            confirmButton = {},
+                            dismissButton = {
+                                TextButton(onClick = { showMenu = false }) { Text("Cancelar") }
+                            },
+                            containerColor = colorResource(id = R.color.principal)
+                        )
+                    }
 
-                // Borrar
-                if (showDelete) {
-                    GenericCrudDialog(
-                        title = "Borrar colección",
-                        collections = collections,
-                        expanded = expanded,
-                        selected = selectedCol,
-                        newName = newName,
-                        totalTxt = totalTxt,
-                        showFields = false,
-                        onExpandedChange = { expanded = !expanded },
-                        onSelect = { selectedCol = it },
-                        onNewValues = { },
-                        onConfirm = {
-                            selectedCol?.let { vm.deleteCollection(it.collectionId) {} }
-                        },
-                        onDismiss = { showDelete = false }
-                    )
+                    // Diálogo para editar colección
+                    if (showEdit) {
+                        GenericCrudDialog(
+                            title = "Editar colección",
+                            collections = collections,
+                            expanded = expanded,
+                            selected = selectedCol,
+                            newName = newName,
+                            totalTxt = totalTxt,
+                            showFields = true,
+                            onExpandedChange = { expanded = !expanded },
+                            onSelect = { selectedCol = it },
+                            onNewValues = { (n, t) -> newName = n; totalTxt = t },
+                            onConfirm = {
+                                selectedCol?.let { vm.updateCollection(it.collectionId, newName, totalTxt.toIntOrNull()) {} }
+                            },
+                            onDismiss = { showEdit = false }
+                        )
+                    }
+
+                    // Diálogo para borrar colección
+                    if (showDelete) {
+                        GenericCrudDialog(
+                            title = "Borrar colección",
+                            collections = collections,
+                            expanded = expanded,
+                            selected = selectedCol,
+                            newName = newName,
+                            totalTxt = totalTxt,
+                            showFields = false,
+                            onExpandedChange = { expanded = !expanded },
+                            onSelect = { selectedCol = it },
+                            onNewValues = { },
+                            onConfirm = {
+                                selectedCol?.let { vm.deleteCollection(it.collectionId) {} }
+                            },
+                            onDismiss = { showDelete = false }
+                        )
+                    }
                 }
             }
         }
@@ -298,6 +333,7 @@ fun GenericCrudDialog(
         },
         dismissButton = {
             TextButton(onClick = onDismiss) { Text("Cancelar") }
-        }
+        },
+        containerColor = colorResource(id = R.color.principal)
     )
 }

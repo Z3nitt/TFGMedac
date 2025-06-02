@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFFFE0"
+    android:background="@drawable/fondo"
     tools:context=".MainScreenActivity">
 
     <!-- Contenido principal -->
@@ -343,4 +343,5 @@
                 android:text="@string/ayuda" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>

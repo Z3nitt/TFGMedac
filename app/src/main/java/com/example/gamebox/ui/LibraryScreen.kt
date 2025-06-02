@@ -2,12 +2,16 @@
 package com.example.gamebox.ui
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.gamebox.R
 import com.example.gamebox.viewmodel.LibraryViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -34,43 +38,52 @@ fun LibraryScreen(vm: LibraryViewModel = viewModel()) {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        // Contadores
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "${games.size}", style = MaterialTheme.typography.headlineMedium)
-                Text(text = "Juegos", style = MaterialTheme.typography.bodySmall)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "${collections.size}", style = MaterialTheme.typography.headlineMedium)
-                Text(text = "Colecciones", style = MaterialTheme.typography.bodySmall)
-            }
-        }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.fondoalpha),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
 
-        // Gráfico de porcentaje
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(120.dp),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            CircularProgressIndicator(
-                progress = pct,
-                strokeWidth = 12.dp,
-                modifier = Modifier.size(100.dp)
-            )
-            Text(text = "${(pct * 100).toInt()}%", style = MaterialTheme.typography.titleLarge)
-        }
+            // Contadores
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "${games.size}", style = MaterialTheme.typography.headlineMedium)
+                    Text(text = "Juegos", style = MaterialTheme.typography.bodySmall)
+                }
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "${collections.size}", style = MaterialTheme.typography.headlineMedium)
+                    Text(text = "Colecciones", style = MaterialTheme.typography.bodySmall)
+                }
+            }
 
-        // Aquí podrías seguir añadiendo el resto de tu UI: últimos añadidos, menús, etc.
+            // Gráfico de porcentaje
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(120.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    progress = pct,
+                    strokeWidth = 12.dp,
+                    modifier = Modifier.size(100.dp)
+                )
+                Text(text = "${(pct * 100).toInt()}%", style = MaterialTheme.typography.titleLarge)
+            }
+
+            // Aquí podrías seguir añadiendo el resto de tu UI: últimos añadidos, menús, etc.
+        }
     }
 }

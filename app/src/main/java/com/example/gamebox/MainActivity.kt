@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +15,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -27,60 +28,66 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Capturamos la Activity
-            val activity = this@MainActivity
-            MaterialTheme {
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = { Text(getString(R.string.appbar_buscar_juego)) },
-                            navigationIcon = {
-                                IconButton(onClick = { activity.finish() }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_arrow_back),
-                                        contentDescription = "Atrás"
-                                    )
+            Box(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = painterResource(id = R.drawable.fondo),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                // Capturamos la Activity
+                val activity = this@MainActivity
+                MaterialTheme {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = { Text(getString(R.string.appbar_buscar_juego)) },
+                                navigationIcon = {
+                                    IconButton(onClick = { activity.finish() }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_arrow_back),
+                                            contentDescription = "Atrás"
+                                        )
+                                    }
                                 }
-                            }
-                        )
-                    }
-                ) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
-                        SearchScreen(
-                            viewModel = viewModel(),
-                            onGameSelected = { selectedItem ->
-                                val intent = Intent(activity, GameDetailActivity::class.java).apply {
-                                    putExtra("item_type", selectedItem::class.simpleName)
-                                    // dentro de onGameSelected = { selectedItem -> … }
-                                    when (selectedItem) {
-                                        is SearchViewModel.ResultItem.Steam -> {
-                                            putExtra("steam_appid", selectedItem.info.appid)
-                                            putExtra("steam_name",  selectedItem.info.name)
-                                        }
-                                        is SearchViewModel.ResultItem.Epic -> {
-                                            putExtra("epic_id",    selectedItem.info.id)
-                                            putExtra("epic_title", selectedItem.info.title)
-                                            putExtra("epic_image", selectedItem.info.imageUrl)
-                                            // ← Usa selectedItem.info.price aquí:
-                                            putExtra("epic_price", selectedItem.info.price)
-                                        }
-                                        is SearchViewModel.ResultItem.Both -> {
-                                            putExtra("steam_appid", selectedItem.steam.appid)
-                                            putExtra("steam_name",  selectedItem.steam.name)
-                                            putExtra("epic_id",     selectedItem.epic.id)
-                                            putExtra("epic_title",  selectedItem.epic.title)
-                                            putExtra("epic_image",  selectedItem.epic.imageUrl)
-                                            // ← Y aquí:
-                                            putExtra("epic_price",  selectedItem.epic.price)
+                            )
+                        }
+                    ) { innerPadding ->
+                        Box(modifier = Modifier.padding(innerPadding)) {
+                            SearchScreen(
+                                viewModel = viewModel(),
+                                onGameSelected = { selectedItem ->
+                                    val intent = Intent(activity, GameDetailActivity::class.java).apply {
+                                        putExtra("item_type", selectedItem::class.simpleName)
+                                        // dentro de onGameSelected = { selectedItem -> … }
+                                        when (selectedItem) {
+                                            is SearchViewModel.ResultItem.Steam -> {
+                                                putExtra("steam_appid", selectedItem.info.appid)
+                                                putExtra("steam_name",  selectedItem.info.name)
+                                            }
+                                            is SearchViewModel.ResultItem.Epic -> {
+                                                putExtra("epic_id",    selectedItem.info.id)
+                                                putExtra("epic_title", selectedItem.info.title)
+                                                putExtra("epic_image", selectedItem.info.imageUrl)
+                                                // ← Usa selectedItem.info.price aquí:
+                                                putExtra("epic_price", selectedItem.info.price)
+                                            }
+                                            is SearchViewModel.ResultItem.Both -> {
+                                                putExtra("steam_appid", selectedItem.steam.appid)
+                                                putExtra("steam_name",  selectedItem.steam.name)
+                                                putExtra("epic_id",     selectedItem.epic.id)
+                                                putExtra("epic_title",  selectedItem.epic.title)
+                                                putExtra("epic_image",  selectedItem.epic.imageUrl)
+                                                // ← Y aquí:
+                                                putExtra("epic_price",  selectedItem.epic.price)
+                                            }
                                         }
                                     }
-
-
-
+                                    activity.startActivity(intent)
                                 }
-                                activity.startActivity(intent)
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }

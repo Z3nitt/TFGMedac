@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/fondo">
 
 
     <LinearLayout
@@ -33,7 +34,7 @@
             android:layout_margin="8dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="8dp"
-            app:cardBackgroundColor="@android:color/white">
+            app:cardBackgroundColor="@color/principal">
 
             <LinearLayout
                 android:layout_width="match_parent"
